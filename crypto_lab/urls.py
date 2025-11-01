@@ -40,5 +40,9 @@ urlpatterns = [
     path('stego/analyze/text/', views.api_analyze_cover_text, name='api_analyze_cover_text'),
     path('stego/analyze/image/', views.api_analyze_image_capacity, name='api_analyze_image_capacity'),
     path('stego/sample-image/', views.api_create_sample_image, name='api_create_sample_image'),
+    
+    # Messaging with encryption steps endpoints
+    path('api/encrypt/', views.api_encrypt, name='api_encrypt'),
+    path('api/decrypt/', views.api_decrypt, name='api_decrypt'),
 ]
 

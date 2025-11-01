@@ -5,6 +5,7 @@ import LoginForm from './components/LoginForm';
 import AttackPanel from './components/AttackPanel';
 import ProtectionPanel from './components/ProtectionPanel';
 import SteganographyPanel from './components/SteganographyPanel';
+import MessagingPanel from './components/MessagingPanel';
 import './index.css';
 
 function App() {
@@ -40,6 +41,12 @@ function App() {
             onClick={() => setActiveTab('stego')}
           >
             🔐 Stéganographie
+          </button>
+          <button
+            className={`tab ${activeTab === 'messaging' ? 'active' : ''}`}
+            onClick={() => setActiveTab('messaging')}
+          >
+            💬 Messagerie
           </button>
           <button
             className={`tab ${activeTab === 'attacks' ? 'active' : ''}`}
@@ -265,6 +272,75 @@ function App() {
                       <li>Watermarking numérique (DRM)</li>
                       <li>Preuve d'authenticité</li>
                       <li>Stockage caché de données sensibles</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'messaging' && (
+            <div className="grid grid-2">
+              <MessagingPanel />
+              
+              <div className="card">
+                <h3 style={{ marginBottom: '16px', color: '#111827' }}>
+                  💬 Communication Sécurisée & Attaque MITM
+                </h3>
+                <div style={{ color: '#6b7280', lineHeight: '1.6' }}>
+                  <p style={{ marginBottom: '12px' }}>
+                    Démonstration interactive de communication chiffrée entre Alice et Bob, 
+                    avec simulation d'attaque Man-in-the-Middle (MITM).
+                  </p>
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <strong style={{ color: '#111827' }}>Mode Normal :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px' }}>
+                      <li>Alice chiffre un message avec une clé</li>
+                      <li>Bob déchiffre avec la même clé</li>
+                      <li>Communication sécurisée ✅</li>
+                    </ul>
+                  </div>
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <strong style={{ color: '#111827' }}>Attaque MITM :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px' }}>
+                      <li><strong>Étape 1</strong> : Alice envoie un message chiffré</li>
+                      <li><strong>Étape 2</strong> : Eve intercepte et déchiffre</li>
+                      <li><strong>Étape 3</strong> : Eve modifie et re-chiffre</li>
+                      <li><strong>Étape 4</strong> : Bob reçoit un message altéré ⚠️</li>
+                    </ul>
+                  </div>
+                  
+                  <div style={{ 
+                    backgroundColor: '#fee2e2', 
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    marginTop: '16px',
+                    border: '1px solid #ef4444'
+                  }}>
+                    <strong style={{ color: '#991b1b' }}>🚨 Vulnérabilité MITM :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px', color: '#991b1b' }}>
+                      <li>L'attaquant est positionné entre émetteur et récepteur</li>
+                      <li>Peut lire, modifier ou remplacer les messages</li>
+                      <li>Les victimes ne détectent pas l'interception</li>
+                      <li><strong>Protection</strong> : Authentification, signatures numériques</li>
+                    </ul>
+                  </div>
+                  
+                  <div style={{ 
+                    backgroundColor: '#dbeafe', 
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    marginTop: '16px',
+                    border: '1px solid #3b82f6'
+                  }}>
+                    <strong style={{ color: '#1e40af' }}>🎓 Valeur Pédagogique :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px', color: '#1e40af' }}>
+                      <li>Comprendre les étapes de chiffrement/déchiffrement</li>
+                      <li>Visualiser le processus cryptographique</li>
+                      <li>Identifier les failles de sécurité</li>
+                      <li>Importance de l'authentification mutuelle</li>
                     </ul>
                   </div>
                 </div>

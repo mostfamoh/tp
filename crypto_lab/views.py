@@ -1332,4 +1332,190 @@ def api_create_sample_image(request):
         }, status=500)
 
 
+def get_decryption_steps(algorithm, ciphertext, key, decrypted_text):
+    """
+    Génère les étapes explicatives du déchiffrement
+    """
+    steps = []
+    key_info = key.copy() if key else {}
+    
+    try:
+        if algorithm == 'caesar':
+            shift = key.get('shift', 0)
+            steps.append(f"Algorithme: Déchiffrement de César avec décalage de {shift}")
+            steps.append(f"Texte chiffré: {ciphertext}")
+            steps.append(f"Pour chaque lettre, soustraire {shift} positions dans l'alphabet (modulo 26)")
+            steps.append(f"Exemple: {ciphertext[0] if ciphertext else 'D'} → {chr((ord(ciphertext[0] if ciphertext else 'D') - ord('A') - shift) % 26 + ord('A'))}")
+            steps.append(f"Résultat: {decrypted_text}")
+            
+        elif algorithm == 'affine':
+            a = key.get('a', 1)
+            b = key.get('b', 0)
+            # Calcul de l'inverse modulaire de a
+            a_inv = pow(a, -1, 26)
+            steps.append(f"Algorithme: Déchiffrement affine avec a={a}, b={b}")
+            steps.append(f"Calcul de l'inverse de a={a} modulo 26: a⁻¹={a_inv}")
+            steps.append(f"Formule: D(y) = {a_inv} × (y - {b}) mod 26")
+            steps.append(f"Texte chiffré: {ciphertext}")
+            steps.append(f"Pour chaque lettre y, calculer {a_inv} × (y - {b}) mod 26")
+            steps.append(f"Résultat: {decrypted_text}")
+            
+        elif algorithm == 'playfair':
+            keyword = key.get('keyword', '')
+            steps.append(f"Algorithme: Déchiffrement Playfair avec mot-clé '{keyword}'")
+            steps.append(f"Utilisation de la même matrice 5×5 que pour le chiffrement")
+            steps.append(f"Texte chiffré: {ciphertext}")
+            steps.append(f"Déchiffrement par paires de lettres (règles inverses):")
+            steps.append(f"  - Même ligne: décaler à gauche")
+            steps.append(f"  - Même colonne: décaler vers le haut")
+            steps.append(f"  - Rectangle: échanger les colonnes")
+            steps.append(f"Résultat: {decrypted_text}")
+            
+        elif algorithm == 'hill':
+            if 'matrix' in key:
+                matrix = key['matrix']
+                steps.append(f"Algorithme: Déchiffrement de Hill avec matrice 2×2")
+                steps.append(f"Matrice de chiffrement: {matrix}")
+                steps.append(f"Calcul de la matrice inverse modulo 26")
+                steps.append(f"Texte chiffré groupé par paires: {ciphertext}")
+                steps.append(f"Chaque paire est multipliée par la matrice inverse (modulo 26)")
+                steps.append(f"Formule: P = K⁻¹ × C mod 26")
+                steps.append(f"Résultat: {decrypted_text}")
+        
+        return {
+            'encrypted_text': ciphertext,
+            'decrypted_text': decrypted_text,
+            'algorithm': algorithm,
+            'steps': steps,
+            'key_info': key_info
+        }
+        
+    except Exception as e:
+        return {
+            'encrypted_text': ciphertext,
+            'decrypted_text': decrypted_text,
+            'algorithm': algorithm,
+            'steps': [f"Déchiffrement effectué avec succès"],
+            'key_info': key_info
+        }
+
+
+@csrf_exempt
+def api_encrypt(request):
+    """
+    API endpoint pour chiffrer un message avec étapes détaillées
+    
+    POST /api/encrypt/
+    {
+        "plaintext": "HELLO",
+        "algorithm": "caesar|affine|playfair|hill",
+        "key": {...}
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST method required'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        plaintext = data.get('plaintext', '')
+        algorithm = data.get('algorithm', '')
+        key = data.get('key', {})
+        
+        if not plaintext or not algorithm:
+            return JsonResponse({'error': 'plaintext and algorithm are required'}, status=400)
+        
+        # Chiffrement
+        if algorithm == 'caesar':
+            shift = key.get('shift', 0)
+            ciphertext = caesar_encrypt(plaintext, shift)
+        elif algorithm == 'affine':
+            a = key.get('a', 5)
+            b = key.get('b', 8)
+            ciphertext = encrypt_affine(plaintext, a, b)
+        elif algorithm == 'playfair':
+            keyword = key.get('keyword', 'KEYWORD')
+            ciphertext = encrypt_playfair(plaintext, keyword)
+        elif algorithm == 'hill':
+            matrix = key.get('matrix', [[3, 3], [2, 5]])
+            ciphertext = hill_encrypt(plaintext, matrix)
+        else:
+            return JsonResponse({'error': 'Invalid algorithm'}, status=400)
+        
+        # Générer les étapes
+        steps_data = get_encryption_steps(algorithm, plaintext, key, ciphertext)
+        
+        return JsonResponse({
+            'success': True,
+            'plaintext': plaintext,
+            'ciphertext': ciphertext,
+            'algorithm': algorithm,
+            'steps': steps_data['steps'],
+            'key_info': steps_data['key_info']
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+
+@csrf_exempt
+def api_decrypt(request):
+    """
+    API endpoint pour déchiffrer un message avec étapes détaillées
+    
+    POST /api/decrypt/
+    {
+        "ciphertext": "KHOOR",
+        "algorithm": "caesar|affine|playfair|hill",
+        "key": {...}
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST method required'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        ciphertext = data.get('ciphertext', '')
+        algorithm = data.get('algorithm', '')
+        key = data.get('key', {})
+        
+        if not ciphertext or not algorithm:
+            return JsonResponse({'error': 'ciphertext and algorithm are required'}, status=400)
+        
+        # Déchiffrement
+        if algorithm == 'caesar':
+            shift = key.get('shift', 0)
+            plaintext = caesar_decrypt(ciphertext, shift)
+        elif algorithm == 'affine':
+            a = key.get('a', 5)
+            b = key.get('b', 8)
+            plaintext = decrypt_affine(ciphertext, a, b)
+        elif algorithm == 'playfair':
+            keyword = key.get('keyword', 'KEYWORD')
+            plaintext = decrypt_playfair(ciphertext, keyword)
+        elif algorithm == 'hill':
+            matrix = key.get('matrix', [[3, 3], [2, 5]])
+            plaintext = hill_decrypt(ciphertext, matrix)
+        else:
+            return JsonResponse({'error': 'Invalid algorithm'}, status=400)
+        
+        # Générer les étapes
+        steps_data = get_decryption_steps(algorithm, ciphertext, key, plaintext)
+        
+        return JsonResponse({
+            'success': True,
+            'ciphertext': ciphertext,
+            'plaintext': plaintext,
+            'algorithm': algorithm,
+            'steps': steps_data['steps'],
+            'key_info': steps_data['key_info']
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+
 
