@@ -1,0 +1,514 @@
+{
+  "case": 2,
+  "algorithm": "cesar",
+  "total_generated": 50,
+  "combinations": [
+    {
+      "index": 1,
+      "plaintext_original": "000000",
+      "plaintext_converted": "AAAAAA",
+      "encrypted": "FFFFFF",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 2,
+      "plaintext_original": "000001",
+      "plaintext_converted": "AAAAAB",
+      "encrypted": "FFFFFG",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 3,
+      "plaintext_original": "000002",
+      "plaintext_converted": "AAAAAC",
+      "encrypted": "FFFFFH",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 4,
+      "plaintext_original": "000003",
+      "plaintext_converted": "AAAAAD",
+      "encrypted": "FFFFFI",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 5,
+      "plaintext_original": "000004",
+      "plaintext_converted": "AAAAAE",
+      "encrypted": "FFFFFJ",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 6,
+      "plaintext_original": "000005",
+      "plaintext_converted": "AAAAAF",
+      "encrypted": "FFFFFK",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 7,
+      "plaintext_original": "000006",
+      "plaintext_converted": "AAAAAG",
+      "encrypted": "FFFFFL",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 8,
+      "plaintext_original": "000007",
+      "plaintext_converted": "AAAAAH",
+      "encrypted": "FFFFFM",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 9,
+      "plaintext_original": "000008",
+      "plaintext_converted": "AAAAAI",
+      "encrypted": "FFFFFN",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 10,
+      "plaintext_original": "000009",
+      "plaintext_converted": "AAAAAJ",
+      "encrypted": "FFFFFO",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 11,
+      "plaintext_original": "000010",
+      "plaintext_converted": "AAAABA",
+      "encrypted": "FFFFGF",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 12,
+      "plaintext_original": "000011",
+      "plaintext_converted": "AAAABB",
+      "encrypted": "FFFFGG",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 13,
+      "plaintext_original": "000012",
+      "plaintext_converted": "AAAABC",
+      "encrypted": "FFFFGH",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 14,
+      "plaintext_original": "000013",
+      "plaintext_converted": "AAAABD",
+      "encrypted": "FFFFGI",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 15,
+      "plaintext_original": "000014",
+      "plaintext_converted": "AAAABE",
+      "encrypted": "FFFFGJ",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 16,
+      "plaintext_original": "000015",
+      "plaintext_converted": "AAAABF",
+      "encrypted": "FFFFGK",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 17,
+      "plaintext_original": "000016",
+      "plaintext_converted": "AAAABG",
+      "encrypted": "FFFFGL",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 18,
+      "plaintext_original": "000017",
+      "plaintext_converted": "AAAABH",
+      "encrypted": "FFFFGM",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 19,
+      "plaintext_original": "000018",
+      "plaintext_converted": "AAAABI",
+      "encrypted": "FFFFGN",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 20,
+      "plaintext_original": "000019",
+      "plaintext_converted": "AAAABJ",
+      "encrypted": "FFFFGO",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 21,
+      "plaintext_original": "000020",
+      "plaintext_converted": "AAAACA",
+      "encrypted": "FFFFHF",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 22,
+      "plaintext_original": "000021",
+      "plaintext_converted": "AAAACB",
+      "encrypted": "FFFFHG",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 23,
+      "plaintext_original": "000022",
+      "plaintext_converted": "AAAACC",
+      "encrypted": "FFFFHH",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 24,
+      "plaintext_original": "000023",
+      "plaintext_converted": "AAAACD",
+      "encrypted": "FFFFHI",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 25,
+      "plaintext_original": "000024",
+      "plaintext_converted": "AAAACE",
+      "encrypted": "FFFFHJ",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 26,
+      "plaintext_original": "000025",
+      "plaintext_converted": "AAAACF",
+      "encrypted": "FFFFHK",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 27,
+      "plaintext_original": "000026",
+      "plaintext_converted": "AAAACG",
+      "encrypted": "FFFFHL",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 28,
+      "plaintext_original": "000027",
+      "plaintext_converted": "AAAACH",
+      "encrypted": "FFFFHM",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 29,
+      "plaintext_original": "000028",
+      "plaintext_converted": "AAAACI",
+      "encrypted": "FFFFHN",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 30,
+      "plaintext_original": "000029",
+      "plaintext_converted": "AAAACJ",
+      "encrypted": "FFFFHO",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 31,
+      "plaintext_original": "000030",
+      "plaintext_converted": "AAAADA",
+      "encrypted": "FFFFIF",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 32,
+      "plaintext_original": "000031",
+      "plaintext_converted": "AAAADB",
+      "encrypted": "FFFFIG",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 33,
+      "plaintext_original": "000032",
+      "plaintext_converted": "AAAADC",
+      "encrypted": "FFFFIH",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 34,
+      "plaintext_original": "000033",
+      "plaintext_converted": "AAAADD",
+      "encrypted": "FFFFII",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 35,
+      "plaintext_original": "000034",
+      "plaintext_converted": "AAAADE",
+      "encrypted": "FFFFIJ",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 36,
+      "plaintext_original": "000035",
+      "plaintext_converted": "AAAADF",
+      "encrypted": "FFFFIK",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 37,
+      "plaintext_original": "000036",
+      "plaintext_converted": "AAAADG",
+      "encrypted": "FFFFIL",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 38,
+      "plaintext_original": "000037",
+      "plaintext_converted": "AAAADH",
+      "encrypted": "FFFFIM",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 39,
+      "plaintext_original": "000038",
+      "plaintext_converted": "AAAADI",
+      "encrypted": "FFFFIN",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 40,
+      "plaintext_original": "000039",
+      "plaintext_converted": "AAAADJ",
+      "encrypted": "FFFFIO",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 41,
+      "plaintext_original": "000040",
+      "plaintext_converted": "AAAAEA",
+      "encrypted": "FFFFJF",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 42,
+      "plaintext_original": "000041",
+      "plaintext_converted": "AAAAEB",
+      "encrypted": "FFFFJG",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 43,
+      "plaintext_original": "000042",
+      "plaintext_converted": "AAAAEC",
+      "encrypted": "FFFFJH",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 44,
+      "plaintext_original": "000043",
+      "plaintext_converted": "AAAAED",
+      "encrypted": "FFFFJI",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 45,
+      "plaintext_original": "000044",
+      "plaintext_converted": "AAAAEE",
+      "encrypted": "FFFFJJ",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 46,
+      "plaintext_original": "000045",
+      "plaintext_converted": "AAAAEF",
+      "encrypted": "FFFFJK",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 47,
+      "plaintext_original": "000046",
+      "plaintext_converted": "AAAAEG",
+      "encrypted": "FFFFJL",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 48,
+      "plaintext_original": "000047",
+      "plaintext_converted": "AAAAEH",
+      "encrypted": "FFFFJM",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 49,
+      "plaintext_original": "000048",
+      "plaintext_converted": "AAAAEI",
+      "encrypted": "FFFFJN",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    },
+    {
+      "index": 50,
+      "plaintext_original": "000049",
+      "plaintext_converted": "AAAAEJ",
+      "encrypted": "FFFFJO",
+      "steps": [],
+      "key_info": {
+        "shift": 5
+      }
+    }
+  ],
+  "description": "Cas 2: 6 caractères, charset {0-9}",
+  "total_possible": 1000000,
+  "charset": "0123456789",
+  "charset_size": 10,
+  "password_length": 6,
+  "showing_all": false,
+  "note": "Affichage limité à 50 résultats sur 1,000,000 possibles"
+}

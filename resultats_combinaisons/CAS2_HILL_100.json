@@ -1,0 +1,2714 @@
+{
+  "case": 2,
+  "algorithm": "hill",
+  "total_generated": 100,
+  "combinations": [
+    {
+      "index": 1,
+      "plaintext_original": "000000",
+      "plaintext_converted": "AAAAAA",
+      "encrypted": "AAAAAA",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 2,
+      "plaintext_original": "000001",
+      "plaintext_converted": "AAAAAB",
+      "encrypted": "AAAAER",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 3,
+      "plaintext_original": "000002",
+      "plaintext_converted": "AAAAAC",
+      "encrypted": "AAAAII",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 4,
+      "plaintext_original": "000003",
+      "plaintext_converted": "AAAAAD",
+      "encrypted": "AAAAMZ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 5,
+      "plaintext_original": "000004",
+      "plaintext_converted": "AAAAAE",
+      "encrypted": "AAAAQQ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 6,
+      "plaintext_original": "000005",
+      "plaintext_converted": "AAAAAF",
+      "encrypted": "AAAAUH",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 7,
+      "plaintext_original": "000006",
+      "plaintext_converted": "AAAAAG",
+      "encrypted": "AAAAYY",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 8,
+      "plaintext_original": "000007",
+      "plaintext_converted": "AAAAAH",
+      "encrypted": "AAAACP",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 9,
+      "plaintext_original": "000008",
+      "plaintext_converted": "AAAAAI",
+      "encrypted": "AAAAGG",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 10,
+      "plaintext_original": "000009",
+      "plaintext_converted": "AAAAAJ",
+      "encrypted": "AAAAKX",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 11,
+      "plaintext_original": "000010",
+      "plaintext_converted": "AAAABA",
+      "encrypted": "AAAASC",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 12,
+      "plaintext_original": "000011",
+      "plaintext_converted": "AAAABB",
+      "encrypted": "AAAAWT",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 13,
+      "plaintext_original": "000012",
+      "plaintext_converted": "AAAABC",
+      "encrypted": "AAAAAK",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 14,
+      "plaintext_original": "000013",
+      "plaintext_converted": "AAAABD",
+      "encrypted": "AAAAEB",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 15,
+      "plaintext_original": "000014",
+      "plaintext_converted": "AAAABE",
+      "encrypted": "AAAAIS",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 16,
+      "plaintext_original": "000015",
+      "plaintext_converted": "AAAABF",
+      "encrypted": "AAAAMJ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 17,
+      "plaintext_original": "000016",
+      "plaintext_converted": "AAAABG",
+      "encrypted": "AAAAQA",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 18,
+      "plaintext_original": "000017",
+      "plaintext_converted": "AAAABH",
+      "encrypted": "AAAAUR",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 19,
+      "plaintext_original": "000018",
+      "plaintext_converted": "AAAABI",
+      "encrypted": "AAAAYI",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 20,
+      "plaintext_original": "000019",
+      "plaintext_converted": "AAAABJ",
+      "encrypted": "AAAACZ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 21,
+      "plaintext_original": "000020",
+      "plaintext_converted": "AAAACA",
+      "encrypted": "AAAAKE",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 22,
+      "plaintext_original": "000021",
+      "plaintext_converted": "AAAACB",
+      "encrypted": "AAAAOV",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 23,
+      "plaintext_original": "000022",
+      "plaintext_converted": "AAAACC",
+      "encrypted": "AAAASM",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 24,
+      "plaintext_original": "000023",
+      "plaintext_converted": "AAAACD",
+      "encrypted": "AAAAWD",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 25,
+      "plaintext_original": "000024",
+      "plaintext_converted": "AAAACE",
+      "encrypted": "AAAAAU",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 26,
+      "plaintext_original": "000025",
+      "plaintext_converted": "AAAACF",
+      "encrypted": "AAAAEL",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 27,
+      "plaintext_original": "000026",
+      "plaintext_converted": "AAAACG",
+      "encrypted": "AAAAIC",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 28,
+      "plaintext_original": "000027",
+      "plaintext_converted": "AAAACH",
+      "encrypted": "AAAAMT",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 29,
+      "plaintext_original": "000028",
+      "plaintext_converted": "AAAACI",
+      "encrypted": "AAAAQK",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 30,
+      "plaintext_original": "000029",
+      "plaintext_converted": "AAAACJ",
+      "encrypted": "AAAAUB",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 31,
+      "plaintext_original": "000030",
+      "plaintext_converted": "AAAADA",
+      "encrypted": "AAAACG",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 32,
+      "plaintext_original": "000031",
+      "plaintext_converted": "AAAADB",
+      "encrypted": "AAAAGX",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 33,
+      "plaintext_original": "000032",
+      "plaintext_converted": "AAAADC",
+      "encrypted": "AAAAKO",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 34,
+      "plaintext_original": "000033",
+      "plaintext_converted": "AAAADD",
+      "encrypted": "AAAAOF",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 35,
+      "plaintext_original": "000034",
+      "plaintext_converted": "AAAADE",
+      "encrypted": "AAAASW",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 36,
+      "plaintext_original": "000035",
+      "plaintext_converted": "AAAADF",
+      "encrypted": "AAAAWN",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 37,
+      "plaintext_original": "000036",
+      "plaintext_converted": "AAAADG",
+      "encrypted": "AAAAAE",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 38,
+      "plaintext_original": "000037",
+      "plaintext_converted": "AAAADH",
+      "encrypted": "AAAAEV",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 39,
+      "plaintext_original": "000038",
+      "plaintext_converted": "AAAADI",
+      "encrypted": "AAAAIM",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 40,
+      "plaintext_original": "000039",
+      "plaintext_converted": "AAAADJ",
+      "encrypted": "AAAAMD",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 41,
+      "plaintext_original": "000040",
+      "plaintext_converted": "AAAAEA",
+      "encrypted": "AAAAUI",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 42,
+      "plaintext_original": "000041",
+      "plaintext_converted": "AAAAEB",
+      "encrypted": "AAAAYZ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 43,
+      "plaintext_original": "000042",
+      "plaintext_converted": "AAAAEC",
+      "encrypted": "AAAACQ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 44,
+      "plaintext_original": "000043",
+      "plaintext_converted": "AAAAED",
+      "encrypted": "AAAAGH",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 45,
+      "plaintext_original": "000044",
+      "plaintext_converted": "AAAAEE",
+      "encrypted": "AAAAKY",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 46,
+      "plaintext_original": "000045",
+      "plaintext_converted": "AAAAEF",
+      "encrypted": "AAAAOP",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 47,
+      "plaintext_original": "000046",
+      "plaintext_converted": "AAAAEG",
+      "encrypted": "AAAASG",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 48,
+      "plaintext_original": "000047",
+      "plaintext_converted": "AAAAEH",
+      "encrypted": "AAAAWX",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 49,
+      "plaintext_original": "000048",
+      "plaintext_converted": "AAAAEI",
+      "encrypted": "AAAAAO",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 50,
+      "plaintext_original": "000049",
+      "plaintext_converted": "AAAAEJ",
+      "encrypted": "AAAAEF",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 51,
+      "plaintext_original": "000050",
+      "plaintext_converted": "AAAAFA",
+      "encrypted": "AAAAMK",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 52,
+      "plaintext_original": "000051",
+      "plaintext_converted": "AAAAFB",
+      "encrypted": "AAAAQB",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 53,
+      "plaintext_original": "000052",
+      "plaintext_converted": "AAAAFC",
+      "encrypted": "AAAAUS",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 54,
+      "plaintext_original": "000053",
+      "plaintext_converted": "AAAAFD",
+      "encrypted": "AAAAYJ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 55,
+      "plaintext_original": "000054",
+      "plaintext_converted": "AAAAFE",
+      "encrypted": "AAAACA",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 56,
+      "plaintext_original": "000055",
+      "plaintext_converted": "AAAAFF",
+      "encrypted": "AAAAGR",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 57,
+      "plaintext_original": "000056",
+      "plaintext_converted": "AAAAFG",
+      "encrypted": "AAAAKI",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 58,
+      "plaintext_original": "000057",
+      "plaintext_converted": "AAAAFH",
+      "encrypted": "AAAAOZ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 59,
+      "plaintext_original": "000058",
+      "plaintext_converted": "AAAAFI",
+      "encrypted": "AAAASQ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 60,
+      "plaintext_original": "000059",
+      "plaintext_converted": "AAAAFJ",
+      "encrypted": "AAAAWH",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 61,
+      "plaintext_original": "000060",
+      "plaintext_converted": "AAAAGA",
+      "encrypted": "AAAAEM",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 62,
+      "plaintext_original": "000061",
+      "plaintext_converted": "AAAAGB",
+      "encrypted": "AAAAID",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 63,
+      "plaintext_original": "000062",
+      "plaintext_converted": "AAAAGC",
+      "encrypted": "AAAAMU",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 64,
+      "plaintext_original": "000063",
+      "plaintext_converted": "AAAAGD",
+      "encrypted": "AAAAQL",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 65,
+      "plaintext_original": "000064",
+      "plaintext_converted": "AAAAGE",
+      "encrypted": "AAAAUC",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 66,
+      "plaintext_original": "000065",
+      "plaintext_converted": "AAAAGF",
+      "encrypted": "AAAAYT",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 67,
+      "plaintext_original": "000066",
+      "plaintext_converted": "AAAAGG",
+      "encrypted": "AAAACK",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 68,
+      "plaintext_original": "000067",
+      "plaintext_converted": "AAAAGH",
+      "encrypted": "AAAAGB",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 69,
+      "plaintext_original": "000068",
+      "plaintext_converted": "AAAAGI",
+      "encrypted": "AAAAKS",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 70,
+      "plaintext_original": "000069",
+      "plaintext_converted": "AAAAGJ",
+      "encrypted": "AAAAOJ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 71,
+      "plaintext_original": "000070",
+      "plaintext_converted": "AAAAHA",
+      "encrypted": "AAAAWO",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 72,
+      "plaintext_original": "000071",
+      "plaintext_converted": "AAAAHB",
+      "encrypted": "AAAAAF",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 73,
+      "plaintext_original": "000072",
+      "plaintext_converted": "AAAAHC",
+      "encrypted": "AAAAEW",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 74,
+      "plaintext_original": "000073",
+      "plaintext_converted": "AAAAHD",
+      "encrypted": "AAAAIN",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 75,
+      "plaintext_original": "000074",
+      "plaintext_converted": "AAAAHE",
+      "encrypted": "AAAAME",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 76,
+      "plaintext_original": "000075",
+      "plaintext_converted": "AAAAHF",
+      "encrypted": "AAAAQV",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 77,
+      "plaintext_original": "000076",
+      "plaintext_converted": "AAAAHG",
+      "encrypted": "AAAAUM",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 78,
+      "plaintext_original": "000077",
+      "plaintext_converted": "AAAAHH",
+      "encrypted": "AAAAYD",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 79,
+      "plaintext_original": "000078",
+      "plaintext_converted": "AAAAHI",
+      "encrypted": "AAAACU",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 80,
+      "plaintext_original": "000079",
+      "plaintext_converted": "AAAAHJ",
+      "encrypted": "AAAAGL",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 81,
+      "plaintext_original": "000080",
+      "plaintext_converted": "AAAAIA",
+      "encrypted": "AAAAOQ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 82,
+      "plaintext_original": "000081",
+      "plaintext_converted": "AAAAIB",
+      "encrypted": "AAAASH",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 83,
+      "plaintext_original": "000082",
+      "plaintext_converted": "AAAAIC",
+      "encrypted": "AAAAWY",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 84,
+      "plaintext_original": "000083",
+      "plaintext_converted": "AAAAID",
+      "encrypted": "AAAAAP",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 85,
+      "plaintext_original": "000084",
+      "plaintext_converted": "AAAAIE",
+      "encrypted": "AAAAEG",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 86,
+      "plaintext_original": "000085",
+      "plaintext_converted": "AAAAIF",
+      "encrypted": "AAAAIX",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 87,
+      "plaintext_original": "000086",
+      "plaintext_converted": "AAAAIG",
+      "encrypted": "AAAAMO",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 88,
+      "plaintext_original": "000087",
+      "plaintext_converted": "AAAAIH",
+      "encrypted": "AAAAQF",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 89,
+      "plaintext_original": "000088",
+      "plaintext_converted": "AAAAII",
+      "encrypted": "AAAAUW",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 90,
+      "plaintext_original": "000089",
+      "plaintext_converted": "AAAAIJ",
+      "encrypted": "AAAAYN",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 91,
+      "plaintext_original": "000090",
+      "plaintext_converted": "AAAAJA",
+      "encrypted": "AAAAGS",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 92,
+      "plaintext_original": "000091",
+      "plaintext_converted": "AAAAJB",
+      "encrypted": "AAAAKJ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 93,
+      "plaintext_original": "000092",
+      "plaintext_converted": "AAAAJC",
+      "encrypted": "AAAAOA",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 94,
+      "plaintext_original": "000093",
+      "plaintext_converted": "AAAAJD",
+      "encrypted": "AAAASR",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 95,
+      "plaintext_original": "000094",
+      "plaintext_converted": "AAAAJE",
+      "encrypted": "AAAAWI",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 96,
+      "plaintext_original": "000095",
+      "plaintext_converted": "AAAAJF",
+      "encrypted": "AAAAAZ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 97,
+      "plaintext_original": "000096",
+      "plaintext_converted": "AAAAJG",
+      "encrypted": "AAAAEQ",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 98,
+      "plaintext_original": "000097",
+      "plaintext_converted": "AAAAJH",
+      "encrypted": "AAAAIH",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 99,
+      "plaintext_original": "000098",
+      "plaintext_converted": "AAAAJI",
+      "encrypted": "AAAAMY",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    },
+    {
+      "index": 100,
+      "plaintext_original": "000099",
+      "plaintext_converted": "AAAAJJ",
+      "encrypted": "AAAAQP",
+      "steps": [
+        "Algorithme: Chiffrement de Hill avec matrice 2×2",
+        "Matrice de chiffrement: [[18, 4], [2, 17]]",
+        "Matrice générée depuis le mot-clé: SECRET",
+        "Texte groupé par paires de lettres",
+        "Chaque paire est multipliée par la matrice (modulo 26)",
+        "Formule: C = K × P mod 26"
+      ],
+      "key_info": {
+        "matrix": [
+          [
+            18,
+            4
+          ],
+          [
+            2,
+            17
+          ]
+        ],
+        "source_keyword": "SECRET"
+      }
+    }
+  ],
+  "description": "Cas 2: 6 caractères, charset {0-9}",
+  "total_possible": 1000000,
+  "charset": "0123456789",
+  "charset_size": 10,
+  "password_length": 6,
+  "showing_all": false,
+  "note": "Affichage limité à 100 résultats sur 1,000,000 possibles"
+}

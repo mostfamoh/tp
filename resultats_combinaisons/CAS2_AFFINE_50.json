@@ -1,0 +1,864 @@
+{
+  "case": 2,
+  "algorithm": "affine",
+  "total_generated": 50,
+  "combinations": [
+    {
+      "index": 1,
+      "plaintext_original": "000000",
+      "plaintext_converted": "AAAAAA",
+      "encrypted": "IIIIII",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAA",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 2,
+      "plaintext_original": "000001",
+      "plaintext_converted": "AAAAAB",
+      "encrypted": "IIIIIN",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAB",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 3,
+      "plaintext_original": "000002",
+      "plaintext_converted": "AAAAAC",
+      "encrypted": "IIIIIS",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAC",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 4,
+      "plaintext_original": "000003",
+      "plaintext_converted": "AAAAAD",
+      "encrypted": "IIIIIX",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAD",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 5,
+      "plaintext_original": "000004",
+      "plaintext_converted": "AAAAAE",
+      "encrypted": "IIIIIC",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAE",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 6,
+      "plaintext_original": "000005",
+      "plaintext_converted": "AAAAAF",
+      "encrypted": "IIIIIH",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAF",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 7,
+      "plaintext_original": "000006",
+      "plaintext_converted": "AAAAAG",
+      "encrypted": "IIIIIM",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAG",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 8,
+      "plaintext_original": "000007",
+      "plaintext_converted": "AAAAAH",
+      "encrypted": "IIIIIR",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAH",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 9,
+      "plaintext_original": "000008",
+      "plaintext_converted": "AAAAAI",
+      "encrypted": "IIIIIW",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAI",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 10,
+      "plaintext_original": "000009",
+      "plaintext_converted": "AAAAAJ",
+      "encrypted": "IIIIIB",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAAJ",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 11,
+      "plaintext_original": "000010",
+      "plaintext_converted": "AAAABA",
+      "encrypted": "IIIINI",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABA",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 12,
+      "plaintext_original": "000011",
+      "plaintext_converted": "AAAABB",
+      "encrypted": "IIIINN",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABB",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 13,
+      "plaintext_original": "000012",
+      "plaintext_converted": "AAAABC",
+      "encrypted": "IIIINS",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABC",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 14,
+      "plaintext_original": "000013",
+      "plaintext_converted": "AAAABD",
+      "encrypted": "IIIINX",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABD",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 15,
+      "plaintext_original": "000014",
+      "plaintext_converted": "AAAABE",
+      "encrypted": "IIIINC",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABE",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 16,
+      "plaintext_original": "000015",
+      "plaintext_converted": "AAAABF",
+      "encrypted": "IIIINH",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABF",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 17,
+      "plaintext_original": "000016",
+      "plaintext_converted": "AAAABG",
+      "encrypted": "IIIINM",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABG",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 18,
+      "plaintext_original": "000017",
+      "plaintext_converted": "AAAABH",
+      "encrypted": "IIIINR",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABH",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 19,
+      "plaintext_original": "000018",
+      "plaintext_converted": "AAAABI",
+      "encrypted": "IIIINW",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABI",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 20,
+      "plaintext_original": "000019",
+      "plaintext_converted": "AAAABJ",
+      "encrypted": "IIIINB",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAABJ",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 21,
+      "plaintext_original": "000020",
+      "plaintext_converted": "AAAACA",
+      "encrypted": "IIIISI",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACA",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 22,
+      "plaintext_original": "000021",
+      "plaintext_converted": "AAAACB",
+      "encrypted": "IIIISN",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACB",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 23,
+      "plaintext_original": "000022",
+      "plaintext_converted": "AAAACC",
+      "encrypted": "IIIISS",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACC",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 24,
+      "plaintext_original": "000023",
+      "plaintext_converted": "AAAACD",
+      "encrypted": "IIIISX",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACD",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 25,
+      "plaintext_original": "000024",
+      "plaintext_converted": "AAAACE",
+      "encrypted": "IIIISC",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACE",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 26,
+      "plaintext_original": "000025",
+      "plaintext_converted": "AAAACF",
+      "encrypted": "IIIISH",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACF",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 27,
+      "plaintext_original": "000026",
+      "plaintext_converted": "AAAACG",
+      "encrypted": "IIIISM",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACG",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 28,
+      "plaintext_original": "000027",
+      "plaintext_converted": "AAAACH",
+      "encrypted": "IIIISR",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACH",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 29,
+      "plaintext_original": "000028",
+      "plaintext_converted": "AAAACI",
+      "encrypted": "IIIISW",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACI",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 30,
+      "plaintext_original": "000029",
+      "plaintext_converted": "AAAACJ",
+      "encrypted": "IIIISB",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAACJ",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 31,
+      "plaintext_original": "000030",
+      "plaintext_converted": "AAAADA",
+      "encrypted": "IIIIXI",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADA",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 32,
+      "plaintext_original": "000031",
+      "plaintext_converted": "AAAADB",
+      "encrypted": "IIIIXN",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADB",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 33,
+      "plaintext_original": "000032",
+      "plaintext_converted": "AAAADC",
+      "encrypted": "IIIIXS",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADC",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 34,
+      "plaintext_original": "000033",
+      "plaintext_converted": "AAAADD",
+      "encrypted": "IIIIXX",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADD",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 35,
+      "plaintext_original": "000034",
+      "plaintext_converted": "AAAADE",
+      "encrypted": "IIIIXC",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADE",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 36,
+      "plaintext_original": "000035",
+      "plaintext_converted": "AAAADF",
+      "encrypted": "IIIIXH",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADF",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 37,
+      "plaintext_original": "000036",
+      "plaintext_converted": "AAAADG",
+      "encrypted": "IIIIXM",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADG",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 38,
+      "plaintext_original": "000037",
+      "plaintext_converted": "AAAADH",
+      "encrypted": "IIIIXR",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADH",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 39,
+      "plaintext_original": "000038",
+      "plaintext_converted": "AAAADI",
+      "encrypted": "IIIIXW",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADI",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 40,
+      "plaintext_original": "000039",
+      "plaintext_converted": "AAAADJ",
+      "encrypted": "IIIIXB",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAADJ",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 41,
+      "plaintext_original": "000040",
+      "plaintext_converted": "AAAAEA",
+      "encrypted": "IIIICI",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEA",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 42,
+      "plaintext_original": "000041",
+      "plaintext_converted": "AAAAEB",
+      "encrypted": "IIIICN",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEB",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 43,
+      "plaintext_original": "000042",
+      "plaintext_converted": "AAAAEC",
+      "encrypted": "IIIICS",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEC",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 44,
+      "plaintext_original": "000043",
+      "plaintext_converted": "AAAAED",
+      "encrypted": "IIIICX",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAED",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 45,
+      "plaintext_original": "000044",
+      "plaintext_converted": "AAAAEE",
+      "encrypted": "IIIICC",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEE",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 46,
+      "plaintext_original": "000045",
+      "plaintext_converted": "AAAAEF",
+      "encrypted": "IIIICH",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEF",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 47,
+      "plaintext_original": "000046",
+      "plaintext_converted": "AAAAEG",
+      "encrypted": "IIIICM",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEG",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 48,
+      "plaintext_original": "000047",
+      "plaintext_converted": "AAAAEH",
+      "encrypted": "IIIICR",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEH",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 49,
+      "plaintext_original": "000048",
+      "plaintext_converted": "AAAAEI",
+      "encrypted": "IIIICW",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEI",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    },
+    {
+      "index": 50,
+      "plaintext_original": "000049",
+      "plaintext_converted": "AAAAEJ",
+      "encrypted": "IIIICB",
+      "steps": [
+        "Algorithme: Chiffrement affine avec a=5, b=8",
+        "Formule: E(x) = (5 × x + 8) mod 26",
+        "Texte nettoyé: AAAAEJ",
+        "Pour chaque lettre x, calculer (5 × x + 8) mod 26",
+        "Exemple: A (x=0) → (5×0+8) mod 26 = 8 → I"
+      ],
+      "key_info": {
+        "a": 5,
+        "b": 8
+      }
+    }
+  ],
+  "description": "Cas 2: 6 caractères, charset {0-9}",
+  "total_possible": 1000000,
+  "charset": "0123456789",
+  "charset_size": 10,
+  "password_length": 6,
+  "showing_all": false,
+  "note": "Affichage limité à 50 résultats sur 1,000,000 possibles"
+}

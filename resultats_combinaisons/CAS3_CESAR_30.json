@@ -1,0 +1,314 @@
+{
+  "case": 3,
+  "algorithm": "cesar",
+  "total_generated": 30,
+  "combinations": [
+    {
+      "index": 1,
+      "plaintext_original": "aaaaaa",
+      "plaintext_converted": "aaaaaa",
+      "encrypted": "HHHHHH",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 2,
+      "plaintext_original": "aaaaab",
+      "plaintext_converted": "aaaaab",
+      "encrypted": "HHHHHI",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 3,
+      "plaintext_original": "aaaaac",
+      "plaintext_converted": "aaaaac",
+      "encrypted": "HHHHHJ",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 4,
+      "plaintext_original": "aaaaad",
+      "plaintext_converted": "aaaaad",
+      "encrypted": "HHHHHK",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 5,
+      "plaintext_original": "aaaaae",
+      "plaintext_converted": "aaaaae",
+      "encrypted": "HHHHHL",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 6,
+      "plaintext_original": "aaaaaf",
+      "plaintext_converted": "aaaaaf",
+      "encrypted": "HHHHHM",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 7,
+      "plaintext_original": "aaaaag",
+      "plaintext_converted": "aaaaag",
+      "encrypted": "HHHHHN",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 8,
+      "plaintext_original": "aaaaah",
+      "plaintext_converted": "aaaaah",
+      "encrypted": "HHHHHO",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 9,
+      "plaintext_original": "aaaaai",
+      "plaintext_converted": "aaaaai",
+      "encrypted": "HHHHHP",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 10,
+      "plaintext_original": "aaaaaj",
+      "plaintext_converted": "aaaaaj",
+      "encrypted": "HHHHHQ",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 11,
+      "plaintext_original": "aaaaak",
+      "plaintext_converted": "aaaaak",
+      "encrypted": "HHHHHR",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 12,
+      "plaintext_original": "aaaaal",
+      "plaintext_converted": "aaaaal",
+      "encrypted": "HHHHHS",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 13,
+      "plaintext_original": "aaaaam",
+      "plaintext_converted": "aaaaam",
+      "encrypted": "HHHHHT",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 14,
+      "plaintext_original": "aaaaan",
+      "plaintext_converted": "aaaaan",
+      "encrypted": "HHHHHU",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 15,
+      "plaintext_original": "aaaaao",
+      "plaintext_converted": "aaaaao",
+      "encrypted": "HHHHHV",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 16,
+      "plaintext_original": "aaaaap",
+      "plaintext_converted": "aaaaap",
+      "encrypted": "HHHHHW",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 17,
+      "plaintext_original": "aaaaaq",
+      "plaintext_converted": "aaaaaq",
+      "encrypted": "HHHHHX",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 18,
+      "plaintext_original": "aaaaar",
+      "plaintext_converted": "aaaaar",
+      "encrypted": "HHHHHY",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 19,
+      "plaintext_original": "aaaaas",
+      "plaintext_converted": "aaaaas",
+      "encrypted": "HHHHHZ",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 20,
+      "plaintext_original": "aaaaat",
+      "plaintext_converted": "aaaaat",
+      "encrypted": "HHHHHA",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 21,
+      "plaintext_original": "aaaaau",
+      "plaintext_converted": "aaaaau",
+      "encrypted": "HHHHHB",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 22,
+      "plaintext_original": "aaaaav",
+      "plaintext_converted": "aaaaav",
+      "encrypted": "HHHHHC",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 23,
+      "plaintext_original": "aaaaaw",
+      "plaintext_converted": "aaaaaw",
+      "encrypted": "HHHHHD",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 24,
+      "plaintext_original": "aaaaax",
+      "plaintext_converted": "aaaaax",
+      "encrypted": "HHHHHE",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 25,
+      "plaintext_original": "aaaaay",
+      "plaintext_converted": "aaaaay",
+      "encrypted": "HHHHHF",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 26,
+      "plaintext_original": "aaaaaz",
+      "plaintext_converted": "aaaaaz",
+      "encrypted": "HHHHHG",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 27,
+      "plaintext_original": "aaaaaA",
+      "plaintext_converted": "aaaaaA",
+      "encrypted": "HHHHHH",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 28,
+      "plaintext_original": "aaaaaB",
+      "plaintext_converted": "aaaaaB",
+      "encrypted": "HHHHHI",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 29,
+      "plaintext_original": "aaaaaC",
+      "plaintext_converted": "aaaaaC",
+      "encrypted": "HHHHHJ",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    },
+    {
+      "index": 30,
+      "plaintext_original": "aaaaaD",
+      "plaintext_converted": "aaaaaD",
+      "encrypted": "HHHHHK",
+      "steps": [],
+      "key_info": {
+        "shift": 7
+      }
+    }
+  ],
+  "description": "Cas 3: 6 caractères, charset {a-z,A-Z,0-9}",
+  "total_possible": 56800235584,
+  "charset": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  "charset_size": 62,
+  "password_length": 6,
+  "showing_all": false,
+  "note": "Affichage limité à 30 résultats sur 56,800,235,584 possibles"
+}

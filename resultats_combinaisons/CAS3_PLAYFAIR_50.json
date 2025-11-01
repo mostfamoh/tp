@@ -1,0 +1,514 @@
+{
+  "case": 3,
+  "algorithm": "plaiyfair",
+  "total_generated": 50,
+  "combinations": [
+    {
+      "index": 1,
+      "plaintext_original": "aaaaaa",
+      "plaintext_converted": "aaaaaa",
+      "encrypted": "BVBVBVBVBVBV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 2,
+      "plaintext_original": "aaaaab",
+      "plaintext_converted": "aaaaab",
+      "encrypted": "BVBVBVBVBC",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 3,
+      "plaintext_original": "aaaaac",
+      "plaintext_converted": "aaaaac",
+      "encrypted": "BVBVBVBVBR",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 4,
+      "plaintext_original": "aaaaad",
+      "plaintext_converted": "aaaaad",
+      "encrypted": "BVBVBVBVBA",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 5,
+      "plaintext_original": "aaaaae",
+      "plaintext_converted": "aaaaae",
+      "encrypted": "BVBVBVBVDY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 6,
+      "plaintext_original": "aaaaaf",
+      "plaintext_converted": "aaaaaf",
+      "encrypted": "BVBVBVBVRH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 7,
+      "plaintext_original": "aaaaag",
+      "plaintext_converted": "aaaaag",
+      "encrypted": "BVBVBVBVDH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 8,
+      "plaintext_original": "aaaaah",
+      "plaintext_converted": "aaaaah",
+      "encrypted": "BVBVBVBVHP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 9,
+      "plaintext_original": "aaaaai",
+      "plaintext_converted": "aaaaai",
+      "encrypted": "BVBVBVBVBH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 10,
+      "plaintext_original": "aaaaaj",
+      "plaintext_converted": "aaaaaj",
+      "encrypted": "BVBVBVBVBH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 11,
+      "plaintext_original": "aaaaak",
+      "plaintext_converted": "aaaaak",
+      "encrypted": "BVBVBVBVRY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 12,
+      "plaintext_original": "aaaaal",
+      "plaintext_converted": "aaaaal",
+      "encrypted": "BVBVBVBVCH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 13,
+      "plaintext_original": "aaaaam",
+      "plaintext_converted": "aaaaam",
+      "encrypted": "BVBVBVBVRP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 14,
+      "plaintext_original": "aaaaan",
+      "plaintext_converted": "aaaaan",
+      "encrypted": "BVBVBVBVDP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 15,
+      "plaintext_original": "aaaaao",
+      "plaintext_converted": "aaaaao",
+      "encrypted": "BVBVBVBVCY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 16,
+      "plaintext_original": "aaaaap",
+      "plaintext_converted": "aaaaap",
+      "encrypted": "BVBVBVBVHV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 17,
+      "plaintext_original": "aaaaaq",
+      "plaintext_converted": "aaaaaq",
+      "encrypted": "BVBVBVBVBP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 18,
+      "plaintext_original": "aaaaar",
+      "plaintext_converted": "aaaaar",
+      "encrypted": "BVBVBVBVBD",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 19,
+      "plaintext_original": "aaaaas",
+      "plaintext_converted": "aaaaas",
+      "encrypted": "BVBVBVBVCP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 20,
+      "plaintext_original": "aaaaat",
+      "plaintext_converted": "aaaaat",
+      "encrypted": "BVBVBVBVRV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 21,
+      "plaintext_original": "aaaaau",
+      "plaintext_converted": "aaaaau",
+      "encrypted": "BVBVBVBVDV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 22,
+      "plaintext_original": "aaaaav",
+      "plaintext_converted": "aaaaav",
+      "encrypted": "BVBVBVBVHY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 23,
+      "plaintext_original": "aaaaaw",
+      "plaintext_converted": "aaaaaw",
+      "encrypted": "BVBVBVBVBY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 24,
+      "plaintext_original": "aaaaax",
+      "plaintext_converted": "aaaaax",
+      "encrypted": "BVBVBVBVBV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 25,
+      "plaintext_original": "aaaaay",
+      "plaintext_converted": "aaaaay",
+      "encrypted": "BVBVBVBVHA",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 26,
+      "plaintext_original": "aaaaaz",
+      "plaintext_converted": "aaaaaz",
+      "encrypted": "BVBVBVBVCV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 27,
+      "plaintext_original": "aaaaaA",
+      "plaintext_converted": "aaaaaA",
+      "encrypted": "BVBVBVBVBVBV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 28,
+      "plaintext_original": "aaaaaB",
+      "plaintext_converted": "aaaaaB",
+      "encrypted": "BVBVBVBVBC",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 29,
+      "plaintext_original": "aaaaaC",
+      "plaintext_converted": "aaaaaC",
+      "encrypted": "BVBVBVBVBR",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 30,
+      "plaintext_original": "aaaaaD",
+      "plaintext_converted": "aaaaaD",
+      "encrypted": "BVBVBVBVBA",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 31,
+      "plaintext_original": "aaaaaE",
+      "plaintext_converted": "aaaaaE",
+      "encrypted": "BVBVBVBVDY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 32,
+      "plaintext_original": "aaaaaF",
+      "plaintext_converted": "aaaaaF",
+      "encrypted": "BVBVBVBVRH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 33,
+      "plaintext_original": "aaaaaG",
+      "plaintext_converted": "aaaaaG",
+      "encrypted": "BVBVBVBVDH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 34,
+      "plaintext_original": "aaaaaH",
+      "plaintext_converted": "aaaaaH",
+      "encrypted": "BVBVBVBVHP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 35,
+      "plaintext_original": "aaaaaI",
+      "plaintext_converted": "aaaaaI",
+      "encrypted": "BVBVBVBVBH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 36,
+      "plaintext_original": "aaaaaJ",
+      "plaintext_converted": "aaaaaJ",
+      "encrypted": "BVBVBVBVBH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 37,
+      "plaintext_original": "aaaaaK",
+      "plaintext_converted": "aaaaaK",
+      "encrypted": "BVBVBVBVRY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 38,
+      "plaintext_original": "aaaaaL",
+      "plaintext_converted": "aaaaaL",
+      "encrypted": "BVBVBVBVCH",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 39,
+      "plaintext_original": "aaaaaM",
+      "plaintext_converted": "aaaaaM",
+      "encrypted": "BVBVBVBVRP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 40,
+      "plaintext_original": "aaaaaN",
+      "plaintext_converted": "aaaaaN",
+      "encrypted": "BVBVBVBVDP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 41,
+      "plaintext_original": "aaaaaO",
+      "plaintext_converted": "aaaaaO",
+      "encrypted": "BVBVBVBVCY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 42,
+      "plaintext_original": "aaaaaP",
+      "plaintext_converted": "aaaaaP",
+      "encrypted": "BVBVBVBVHV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 43,
+      "plaintext_original": "aaaaaQ",
+      "plaintext_converted": "aaaaaQ",
+      "encrypted": "BVBVBVBVBP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 44,
+      "plaintext_original": "aaaaaR",
+      "plaintext_converted": "aaaaaR",
+      "encrypted": "BVBVBVBVBD",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 45,
+      "plaintext_original": "aaaaaS",
+      "plaintext_converted": "aaaaaS",
+      "encrypted": "BVBVBVBVCP",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 46,
+      "plaintext_original": "aaaaaT",
+      "plaintext_converted": "aaaaaT",
+      "encrypted": "BVBVBVBVRV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 47,
+      "plaintext_original": "aaaaaU",
+      "plaintext_converted": "aaaaaU",
+      "encrypted": "BVBVBVBVDV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 48,
+      "plaintext_original": "aaaaaV",
+      "plaintext_converted": "aaaaaV",
+      "encrypted": "BVBVBVBVHY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 49,
+      "plaintext_original": "aaaaaW",
+      "plaintext_converted": "aaaaaW",
+      "encrypted": "BVBVBVBVBY",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    },
+    {
+      "index": 50,
+      "plaintext_original": "aaaaaX",
+      "plaintext_converted": "aaaaaX",
+      "encrypted": "BVBVBVBVBV",
+      "steps": [],
+      "key_info": {
+        "keyword": "KEYWORD"
+      }
+    }
+  ],
+  "description": "Cas 3: 6 caractères, charset {a-z,A-Z,0-9}",
+  "total_possible": 56800235584,
+  "charset": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+  "charset_size": 62,
+  "password_length": 6,
+  "showing_all": false,
+  "note": "Affichage limité à 50 résultats sur 56,800,235,584 possibles"
+}

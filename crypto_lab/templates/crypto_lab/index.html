@@ -1,0 +1,349 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Lab - Password Attack Simulator</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'crypto_lab/css/style.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-shield-lock"></i> Crypto Lab
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#attacks">Attacks</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#lookup">Lookup</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container main-container">
+        
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center text-white">
+                <h1 class="display-4 fw-bold mb-3">
+                    <i class="bi bi-cpu"></i> Cryptographic Attack Simulator
+                </h1>
+                <p class="lead">Test classical encryption algorithms with brute-force and dictionary attacks</p>
+                <p class="text-white-50">Supports Caesar, Affine, Playfair, and Hill ciphers</p>
+            </div>
+        </div>
+
+        <!-- Alert Container -->
+        <div id="alert-container"></div>
+
+        <!-- User Registration Section -->
+        <div class="row" id="register">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-person-plus"></i> User Registration
+                    </div>
+                    <div class="card-body">
+                        <form id="registration-form">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Username</label>
+                                    <input type="text" class="form-control" id="reg-username" required 
+                                           placeholder="Enter username (use test_* for attacks)">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Password</label>
+                                    <input type="text" class="form-control" id="reg-password" required 
+                                           placeholder="Enter plaintext password">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Encryption Algorithm</label>
+                                <select class="form-select" id="reg-algorithm" required>
+                                    <option value="caesar">Caesar Cipher</option>
+                                    <option value="affine">Affine Cipher</option>
+                                    <option value="playfair">Playfair Cipher</option>
+                                    <option value="hill">Hill Cipher</option>
+                                </select>
+                            </div>
+
+                            <!-- Caesar Key -->
+                            <div id="caesar-key-group" class="key-input-group mb-3">
+                                <label class="form-label">Shift Value (0-25)</label>
+                                <input type="number" class="form-control" id="caesar-shift" 
+                                       min="0" max="25" value="3" placeholder="e.g., 3">
+                            </div>
+
+                            <!-- Affine Key -->
+                            <div id="affine-key-group" class="key-input-group mb-3" style="display:none;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Value 'a' (must be coprime with 26)</label>
+                                        <input type="number" class="form-control" id="affine-a" 
+                                               min="1" max="25" value="5" placeholder="e.g., 5">
+                                        <small class="text-muted">Valid: 1,3,5,7,9,11,15,17,19,21,23,25</small>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Value 'b' (0-25)</label>
+                                        <input type="number" class="form-control" id="affine-b" 
+                                               min="0" max="25" value="8" placeholder="e.g., 8">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Playfair Key -->
+                            <div id="playfair-key-group" class="key-input-group mb-3" style="display:none;">
+                                <label class="form-label">Keyword</label>
+                                <input type="text" class="form-control" id="playfair-keyword" 
+                                       placeholder="e.g., MONARCHY">
+                                <small class="text-muted">Letters only, no J (replaced with I)</small>
+                            </div>
+
+                            <!-- Hill Key -->
+                            <div id="hill-key-group" class="key-input-group mb-3" style="display:none;">
+                                <label class="form-label">Keyword (for 3x3 matrix)</label>
+                                <input type="text" class="form-control" id="hill-keyword" 
+                                       placeholder="e.g., HILLCIPHER">
+                                <small class="text-muted">At least 9 letters for 3x3 matrix</small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle"></i> Register User
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Login Section -->
+        <div class="row mt-4" id="login">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-box-arrow-in-right"></i> User Login
+                    </div>
+                    <div class="card-body">
+                        <div id="login-alert"></div>
+                        <form id="login-form">
+                            <div class="mb-3">
+                                <label class="form-label">Username</label>
+                                <input type="text" class="form-control" id="login-username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="login-password" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="bi bi-key"></i> Login
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Lookup Section -->
+        <div class="row mt-4" id="lookup">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-search"></i> User Lookup
+                    </div>
+                    <div class="card-body">
+                        <div id="user-lookup-alert"></div>
+                        <form id="user-lookup-form">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="user-lookup-username" 
+                                       placeholder="Enter username" required>
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="bi bi-search"></i> Lookup
+                                </button>
+                            </div>
+                        </form>
+                        <div id="user-info-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attacks Section -->
+        <div class="row mt-5" id="attacks">
+            <div class="col-12">
+                <h2 class="text-white text-center mb-4">
+                    <i class="bi bi-lightning-charge"></i> Password Attack Operations
+                </h2>
+            </div>
+        </div>
+
+        <!-- Tabs for Attack Types -->
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-tabs mb-4" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="bruteforce-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#bruteforce" type="button">
+                                    <i class="bi bi-gear"></i> Brute Force Attack
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="dictionary-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#dictionary" type="button">
+                                    <i class="bi bi-book"></i> Dictionary Attack
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Brute Force Tab -->
+                            <div class="tab-pane fade show active" id="bruteforce" role="tabpanel">
+                                <div id="bf-alert"></div>
+                                <form id="bruteforce-form">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Target Username</label>
+                                            <input type="text" class="form-control" id="bf-username" required
+                                                   placeholder="e.g., test_alice">
+                                            <small class="text-muted">Must be a test account (test_*, demo_*, tmp_*)</small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Algorithm (leave empty for auto-detect)</label>
+                                            <select class="form-select" id="bf-algorithm">
+                                                <option value="">Auto-detect from user</option>
+                                                <option value="caesar">Caesar</option>
+                                                <option value="affine">Affine</option>
+                                                <option value="playfair">Playfair</option>
+                                                <option value="hill">Hill</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Attempt Limit (0 = no limit)</label>
+                                            <input type="number" class="form-control" id="bf-limit" 
+                                                   min="0" value="1000" placeholder="e.g., 1000">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Max Seconds (0 = no limit)</label>
+                                            <input type="number" class="form-control" id="bf-max-seconds" 
+                                                   min="0" step="0.1" value="10" placeholder="e.g., 10">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Playfair Keyspace (one keyword per line, required for Playfair)</label>
+                                        <textarea class="form-control" id="bf-keyspace" rows="3" 
+                                                  placeholder="MONARCHY&#10;KEYWORD&#10;SECRET"></textarea>
+                                        <small class="text-muted">Only needed for Playfair brute-force</small>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-unlock"></i> Run Brute Force Attack
+                                    </button>
+                                </form>
+
+                                <div id="bf-result" class="mt-4"></div>
+                            </div>
+
+                            <!-- Dictionary Attack Tab -->
+                            <div class="tab-pane fade" id="dictionary" role="tabpanel">
+                                <div id="dict-alert"></div>
+                                <form id="dictionary-form">
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Target Username</label>
+                                            <input type="text" class="form-control" id="dict-username" required
+                                                   placeholder="e.g., test_alice">
+                                            <small class="text-muted">Must be a test account (test_*, demo_*, tmp_*)</small>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Algorithm (leave empty for auto-detect)</label>
+                                            <select class="form-select" id="dict-algorithm">
+                                                <option value="">Auto-detect from user</option>
+                                                <option value="caesar">Caesar</option>
+                                                <option value="affine">Affine</option>
+                                                <option value="playfair">Playfair</option>
+                                                <option value="hill">Hill</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Attempt Limit (0 = no limit)</label>
+                                            <input type="number" class="form-control" id="dict-limit" 
+                                                   min="0" value="0" placeholder="0">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Max Seconds (0 = no limit)</label>
+                                            <input type="number" class="form-control" id="dict-max-seconds" 
+                                                   min="0" step="0.1" value="30" placeholder="30">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Dictionary Words (one per line)</label>
+                                        <textarea class="form-control" id="dict-dictionary" rows="5" required
+                                                  placeholder="PASSWORD&#10;SECRET&#10;HELLO&#10;WORLD&#10;ADMIN"></textarea>
+                                        <small class="text-muted">Enter candidate passwords, one per line</small>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-book"></i> Run Dictionary Attack
+                                    </button>
+                                </form>
+
+                                <div id="dict-result" class="mt-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer text-center">
+        <div class="container">
+            <p class="mb-0">
+                <i class="bi bi-shield-lock"></i> Crypto Lab - Educational Password Attack Simulator
+            </p>
+            <small class="text-white-50">For educational purposes only. Always respect privacy and legal boundaries.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{% static 'crypto_lab/js/app.js' %}"></script>
+</body>
+</html>

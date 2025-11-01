@@ -1,0 +1,51 @@
+[
+  {
+    "test": "CAS1_CESAR_COMPLET",
+    "status": "SUCCESS",
+    "generated": 27,
+    "total_possible": 27,
+    "file": "resultats_combinaisons\\CAS1_CESAR_COMPLET.json"
+  },
+  {
+    "test": "CAS1_HILL_COMPLET",
+    "status": "SUCCESS",
+    "generated": 27,
+    "total_possible": 27,
+    "file": "resultats_combinaisons\\CAS1_HILL_COMPLET.json"
+  },
+  {
+    "test": "CAS2_CESAR_50",
+    "status": "SUCCESS",
+    "generated": 50,
+    "total_possible": 1000000,
+    "file": "resultats_combinaisons\\CAS2_CESAR_50.json"
+  },
+  {
+    "test": "CAS2_HILL_100",
+    "status": "SUCCESS",
+    "generated": 100,
+    "total_possible": 1000000,
+    "file": "resultats_combinaisons\\CAS2_HILL_100.json"
+  },
+  {
+    "test": "CAS2_AFFINE_50",
+    "status": "SUCCESS",
+    "generated": 50,
+    "total_possible": 1000000,
+    "file": "resultats_combinaisons\\CAS2_AFFINE_50.json"
+  },
+  {
+    "test": "CAS3_CESAR_30",
+    "status": "SUCCESS",
+    "generated": 30,
+    "total_possible": 56800235584,
+    "file": "resultats_combinaisons\\CAS3_CESAR_30.json"
+  },
+  {
+    "test": "CAS3_PLAYFAIR_50",
+    "status": "SUCCESS",
+    "generated": 50,
+    "total_possible": 56800235584,
+    "file": "resultats_combinaisons\\CAS3_PLAYFAIR_50.json"
+  }
+]

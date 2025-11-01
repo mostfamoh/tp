@@ -1,0 +1,283 @@
+{
+  "case": 1,
+  "algorithm": "cesar",
+  "total_generated": 27,
+  "combinations": [
+    {
+      "index": 1,
+      "plaintext_original": "000",
+      "plaintext_converted": "AAA",
+      "encrypted": "DDD",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 2,
+      "plaintext_original": "001",
+      "plaintext_converted": "AAB",
+      "encrypted": "DDE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 3,
+      "plaintext_original": "002",
+      "plaintext_converted": "AAC",
+      "encrypted": "DDF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 4,
+      "plaintext_original": "010",
+      "plaintext_converted": "ABA",
+      "encrypted": "DED",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 5,
+      "plaintext_original": "011",
+      "plaintext_converted": "ABB",
+      "encrypted": "DEE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 6,
+      "plaintext_original": "012",
+      "plaintext_converted": "ABC",
+      "encrypted": "DEF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 7,
+      "plaintext_original": "020",
+      "plaintext_converted": "ACA",
+      "encrypted": "DFD",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 8,
+      "plaintext_original": "021",
+      "plaintext_converted": "ACB",
+      "encrypted": "DFE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 9,
+      "plaintext_original": "022",
+      "plaintext_converted": "ACC",
+      "encrypted": "DFF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 10,
+      "plaintext_original": "100",
+      "plaintext_converted": "BAA",
+      "encrypted": "EDD",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 11,
+      "plaintext_original": "101",
+      "plaintext_converted": "BAB",
+      "encrypted": "EDE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 12,
+      "plaintext_original": "102",
+      "plaintext_converted": "BAC",
+      "encrypted": "EDF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 13,
+      "plaintext_original": "110",
+      "plaintext_converted": "BBA",
+      "encrypted": "EED",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 14,
+      "plaintext_original": "111",
+      "plaintext_converted": "BBB",
+      "encrypted": "EEE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 15,
+      "plaintext_original": "112",
+      "plaintext_converted": "BBC",
+      "encrypted": "EEF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 16,
+      "plaintext_original": "120",
+      "plaintext_converted": "BCA",
+      "encrypted": "EFD",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 17,
+      "plaintext_original": "121",
+      "plaintext_converted": "BCB",
+      "encrypted": "EFE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 18,
+      "plaintext_original": "122",
+      "plaintext_converted": "BCC",
+      "encrypted": "EFF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 19,
+      "plaintext_original": "200",
+      "plaintext_converted": "CAA",
+      "encrypted": "FDD",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 20,
+      "plaintext_original": "201",
+      "plaintext_converted": "CAB",
+      "encrypted": "FDE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 21,
+      "plaintext_original": "202",
+      "plaintext_converted": "CAC",
+      "encrypted": "FDF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 22,
+      "plaintext_original": "210",
+      "plaintext_converted": "CBA",
+      "encrypted": "FED",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 23,
+      "plaintext_original": "211",
+      "plaintext_converted": "CBB",
+      "encrypted": "FEE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 24,
+      "plaintext_original": "212",
+      "plaintext_converted": "CBC",
+      "encrypted": "FEF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 25,
+      "plaintext_original": "220",
+      "plaintext_converted": "CCA",
+      "encrypted": "FFD",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 26,
+      "plaintext_original": "221",
+      "plaintext_converted": "CCB",
+      "encrypted": "FFE",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    },
+    {
+      "index": 27,
+      "plaintext_original": "222",
+      "plaintext_converted": "CCC",
+      "encrypted": "FFF",
+      "steps": [],
+      "key_info": {
+        "shift": 3
+      }
+    }
+  ],
+  "description": "Cas 1: 3 caractères, charset {0,1,2}",
+  "total_possible": 27,
+  "charset": "012",
+  "charset_size": 3,
+  "password_length": 3,
+  "showing_all": true
+}
