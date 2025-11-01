@@ -30,10 +30,28 @@ const LoginForm = ({ onSuccess }) => {
       });
       if (onSuccess) onSuccess(result);
     } catch (error) {
-      setMessage({ 
-        type: 'error', 
-        text: error.response?.data?.error || 'Erreur de connexion'
-      });
+      const errorData = error.response?.data;
+      
+      // Gérer le cas du compte verrouillé
+      if (errorData?.locked) {
+        setMessage({ 
+          type: 'error', 
+          text: `🔒 ${errorData.message || 'Compte verrouillé'}`,
+          locked: true,
+          remaining_minutes: errorData.remaining_minutes
+        });
+      } else {
+        // Afficher le message d'erreur avec tentatives restantes
+        const errorText = errorData?.error || 'Erreur de connexion';
+        const attemptsInfo = errorData?.attempts_left !== null && errorData?.attempts_left !== undefined
+          ? ` (${errorData.attempts_left} tentative(s) restante(s))`
+          : '';
+        
+        setMessage({ 
+          type: 'error', 
+          text: errorText + attemptsInfo
+        });
+      }
     } finally {
       setLoading(false);
     }
@@ -46,6 +64,11 @@ const LoginForm = ({ onSuccess }) => {
       {message && (
         <div className={`alert alert-${message.type === 'success' ? 'success' : 'error'}`}>
           {message.text}
+          {message.locked && message.remaining_minutes > 0 && (
+            <div style={{ marginTop: '10px', fontSize: '0.9em' }}>
+              ⏱️ Temps restant: {message.remaining_minutes} minute(s)
+            </div>
+          )}
         </div>
       )}
 
@@ -94,3 +117,4 @@ const LoginForm = ({ onSuccess }) => {
 };
 
 export default LoginForm;
+

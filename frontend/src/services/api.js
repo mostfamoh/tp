@@ -36,6 +36,24 @@ export const authService = {
   },
 };
 
+// Services de protection de compte
+export const protectionService = {
+  toggleProtection: async (username, enabled) => {
+    const response = await api.post(`/users/${username}/toggle-protection/`, { enabled });
+    return response.data;
+  },
+  
+  getProtectionStatus: async (username) => {
+    const response = await api.get(`/users/${username}/protection-status/`);
+    return response.data;
+  },
+  
+  unlockAccount: async (username) => {
+    const response = await api.post(`/users/${username}/unlock/`);
+    return response.data;
+  },
+};
+
 // Services d'attaques
 export const attackService = {
   bruteforce: async (username, maxSeconds = 30, limit = 1000) => {
@@ -75,3 +93,4 @@ export const attackService = {
 };
 
 export default api;
+

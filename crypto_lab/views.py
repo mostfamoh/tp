@@ -9,6 +9,13 @@ from backend.cryptotoolbox.cyphers.plaiyfair import encrypt_playfair,decrypt_pla
 from backend.cryptotoolbox.cyphers.hill import hill_encrypt,hill_decrypt
 from backend.cryptotoolbox.cyphers.affine import decrypt_affine,encrypt_affine
 from backend.cryptotoolbox.attack.attack_runner import run_attack
+from backend.cryptotoolbox.steganography import (
+    hide_text_in_text, extract_text_from_text,
+    hide_text_in_image, extract_text_from_image
+)
+from backend.cryptotoolbox.steganography.text_stego import get_available_methods, analyze_cover_text
+from backend.cryptotoolbox.steganography.image_stego import analyze_image_capacity, create_sample_image, get_image_methods
+import base64
 
 
 def index(request):
@@ -228,6 +235,16 @@ def login_user(request):
     except CustomUser.DoesNotExist:
         return JsonResponse({'message': 'User Not Found'}, status=404)
     
+    # Vérifier si le compte est verrouillé
+    if user.is_account_locked():
+        remaining_minutes = user.get_lock_remaining_time()
+        return JsonResponse({
+            'error': 'Compte verrouillé',
+            'message': f'Votre compte est verrouillé pour {remaining_minutes} minute(s) suite à trop de tentatives échouées.',
+            'locked': True,
+            'remaining_minutes': remaining_minutes
+        }, status=403)
+    
     # Parser la clé stockée selon l'algorithme
     try:
         algorithm = user.algorithm.lower()
@@ -244,15 +261,41 @@ def login_user(request):
     except Exception as e:
         return JsonResponse({'error': f'Erreur de déchiffrement: {str(e)}'}, status=400)
     
-    if decrypted_pass == password_input.upper().replace(" ", ""):
+    # Convertir le mot de passe saisi si il contient des chiffres (comme lors de l'enregistrement)
+    password_to_check = password_input.upper().replace(" ", "")
+    if any(c.isdigit() for c in password_to_check):
+        password_to_check = ''.join([
+            chr(ord('A') + int(c)) if c.isdigit() else c 
+            for c in password_to_check
+        ])
+    
+    if decrypted_pass == password_to_check:
+        # Connexion réussie - réinitialiser les tentatives échouées
+        user.reset_failed_attempts()
         return JsonResponse({
             'message': f'Welcome back {username}!',
             'username': username,
             'algorithm': user.algorithm,
-            'success': True
+            'success': True,
+            'protection_enabled': user.protection_enabled
         })
     else:
-        return JsonResponse({'error':'Incorrect Password'},status=401)
+        # Mot de passe incorrect - enregistrer la tentative échouée
+        user.record_failed_attempt()
+        
+        # Préparer le message d'erreur
+        error_message = 'Incorrect Password'
+        if user.protection_enabled:
+            attempts_left = max(0, 3 - user.failed_login_attempts)
+            if attempts_left > 0:
+                error_message = f'Mot de passe incorrect. Il vous reste {attempts_left} tentative(s).'
+            else:
+                error_message = 'Compte verrouillé pour 30 minutes suite à trop de tentatives échouées.'
+        
+        return JsonResponse({
+            'error': error_message,
+            'attempts_left': max(0, 3 - user.failed_login_attempts) if user.protection_enabled else None
+        }, status=401)
 
 
 def alpha_candidate(pt):
@@ -288,9 +331,50 @@ def api_attack_full_bruteforce(request):
     except Exception:
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
+    # Vérifier la protection du compte ciblé
+    target_username = payload.get('target_username')
+    user_obj = None
+    protection_enabled = False
+    
+    if target_username:
+        try:
+            user_obj = CustomUser.objects.get(username=target_username)
+            protection_enabled = user_obj.protection_enabled
+            
+            # Vérifier si le compte est verrouillé
+            if user_obj.is_account_locked():
+                remaining_minutes = user_obj.get_lock_remaining_time()
+                return JsonResponse({
+                    'error': 'Compte verrouillé',
+                    'message': f'Le compte {target_username} est verrouillé pour {remaining_minutes} minute(s) suite à trop de tentatives échouées.',
+                    'locked': True,
+                    'remaining_minutes': remaining_minutes,
+                    'attempts_left': 0,
+                    'matches_count': 0
+                }, status=403)
+        except CustomUser.DoesNotExist:
+            pass  # Laisser l'attaque se poursuivre, elle échouera avec "User not found"
+
     # force mode to bruteforce
     payload['mode'] = 'bruteforce'
     report = run_attack(payload)
+    
+    # Si la protection est activée et l'attaque a échoué, incrémenter le compteur
+    if protection_enabled and user_obj and report.get('matches_count', 0) == 0:
+        user_obj.record_failed_attempt()
+        attempts_left = max(0, 3 - user_obj.failed_login_attempts)
+        
+        # Ajouter l'info dans le rapport
+        report['protection_active'] = True
+        report['failed_attempts'] = user_obj.failed_login_attempts
+        report['attempts_left'] = attempts_left
+        
+        if user_obj.is_account_locked():
+            report['account_locked'] = True
+            report['locked_message'] = 'Compte verrouillé pour 30 minutes suite à trop de tentatives échouées.'
+        elif attempts_left > 0:
+            report['warning'] = f'Attention : Il vous reste {attempts_left} tentative(s) avant le verrouillage du compte.'
+    
     return JsonResponse(report, json_dumps_params={'ensure_ascii': False})
 
 
@@ -302,6 +386,30 @@ def api_attack_full_dictionary(request):
         payload = json.loads(request.body)
     except Exception:
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    
+    # Vérifier la protection du compte ciblé
+    target_username = payload.get('target_username')
+    user_obj = None
+    protection_enabled = False
+    
+    if target_username:
+        try:
+            user_obj = CustomUser.objects.get(username=target_username)
+            protection_enabled = user_obj.protection_enabled
+            
+            # Vérifier si le compte est verrouillé
+            if user_obj.is_account_locked():
+                remaining_minutes = user_obj.get_lock_remaining_time()
+                return JsonResponse({
+                    'error': 'Compte verrouillé',
+                    'message': f'Le compte {target_username} est verrouillé pour {remaining_minutes} minute(s) suite à trop de tentatives échouées.',
+                    'locked': True,
+                    'remaining_minutes': remaining_minutes,
+                    'attempts_left': 0,
+                    'matches_count': 0
+                }, status=403)
+        except CustomUser.DoesNotExist:
+            pass  # Laisser l'attaque se poursuivre, elle échouera avec "User not found"
     
     # Charger le dictionnaire depuis le fichier
     import os
@@ -349,6 +457,22 @@ def api_attack_full_dictionary(request):
         'path': dict_path,
         'size': len(dictionary)
     }
+    
+    # Si la protection est activée et l'attaque a échoué, incrémenter le compteur
+    if protection_enabled and user_obj and result.get('matches_count', 0) == 0:
+        user_obj.record_failed_attempt()
+        attempts_left = max(0, 3 - user_obj.failed_login_attempts)
+        
+        # Ajouter l'info dans le rapport
+        result['protection_active'] = True
+        result['failed_attempts'] = user_obj.failed_login_attempts
+        result['attempts_left'] = attempts_left
+        
+        if user_obj.is_account_locked():
+            result['account_locked'] = True
+            result['locked_message'] = 'Compte verrouillé pour 30 minutes suite à trop de tentatives échouées.'
+        elif attempts_left > 0:
+            result['warning'] = f'Attention : Il vous reste {attempts_left} tentative(s) avant le verrouillage du compte.'
     
     return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
 
@@ -817,6 +941,93 @@ def api_password_cases_info(request):
 
 
 @csrf_exempt
+def api_toggle_protection(request, username):
+    """
+    API endpoint to toggle account protection.
+    
+    POST /api/users/<username>/toggle-protection/
+    Body: { "enabled": true/false }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST method required'}, status=405)
+    
+    try:
+        user = CustomUser.objects.get(username=username)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+    
+    try:
+        data = json.loads(request.body)
+        enabled = data.get('enabled', not user.protection_enabled)
+        
+        user.protection_enabled = enabled
+        
+        # Si on désactive la protection, réinitialiser les tentatives
+        if not enabled:
+            user.failed_login_attempts = 0
+            user.account_locked_until = None
+            user.last_failed_attempt = None
+        
+        user.save()
+        
+        return JsonResponse({
+            'success': True,
+            'username': username,
+            'protection_enabled': user.protection_enabled,
+            'message': f'Protection {"activée" if enabled else "désactivée"} pour {username}'
+        })
+    
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def api_get_protection_status(request, username):
+    """
+    API endpoint to get protection status.
+    
+    GET /api/users/<username>/protection-status/
+    """
+    try:
+        user = CustomUser.objects.get(username=username)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+    
+    return JsonResponse({
+        'username': username,
+        'protection_enabled': user.protection_enabled,
+        'failed_attempts': user.failed_login_attempts,
+        'is_locked': user.is_account_locked(),
+        'remaining_minutes': user.get_lock_remaining_time() if user.is_account_locked() else 0,
+        'last_failed_attempt': user.last_failed_attempt.isoformat() if user.last_failed_attempt else None
+    })
+
+
+@csrf_exempt
+def api_unlock_account(request, username):
+    """
+    API endpoint to manually unlock an account (admin function).
+    
+    POST /api/users/<username>/unlock/
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST method required'}, status=405)
+    
+    try:
+        user = CustomUser.objects.get(username=username)
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+    
+    user.reset_failed_attempts()
+    
+    return JsonResponse({
+        'success': True,
+        'username': username,
+        'message': f'Compte {username} déverrouillé avec succès'
+    })
+
+
+@csrf_exempt
 def api_password_protection_recommendations(request):
     """
     API endpoint to get password protection recommendations.
@@ -841,4 +1052,284 @@ def api_password_protection_recommendations(request):
             'error': str(e),
             'traceback': traceback.format_exc()
         }, status=500)
+
+
+# ==================== STEGANOGRAPHY ENDPOINTS ====================
+
+@csrf_exempt
+def api_text_stego_hide(request):
+    """
+    Cache un message secret dans un texte de couverture
+    
+    POST /api/stego/text/hide/
+    Body: {
+        "cover_text": "Le texte visible qui servira de couverture...",
+        "secret_message": "Message secret",
+        "method": "whitespace" | "zerowidth" | "case"
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        cover_text = data.get('cover_text')
+        secret_message = data.get('secret_message')
+        method = data.get('method', 'whitespace')
+        
+        if not cover_text or not secret_message:
+            return JsonResponse({
+                'error': 'cover_text et secret_message sont requis'
+            }, status=400)
+        
+        result = hide_text_in_text(cover_text, secret_message, method)
+        return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
+    
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+
+@csrf_exempt
+def api_text_stego_extract(request):
+    """
+    Extrait un message secret d'un texte stéganographié
+    
+    POST /api/stego/text/extract/
+    Body: {
+        "stego_text": "Texte contenant un message caché",
+        "method": "whitespace" | "zerowidth" | "case"
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        stego_text = data.get('stego_text')
+        method = data.get('method', 'whitespace')
+        
+        if not stego_text:
+            return JsonResponse({
+                'error': 'stego_text est requis'
+            }, status=400)
+        
+        result = extract_text_from_text(stego_text, method)
+        return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
+    
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+
+@csrf_exempt
+def api_image_stego_hide(request):
+    """
+    Cache un message secret dans une image
+    
+    POST /api/stego/image/hide/
+    Body: {
+        "image_data": "base64_encoded_image",
+        "secret_message": "Message secret",
+        "method": "lsb"
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        image_data = data.get('image_data')
+        secret_message = data.get('secret_message')
+        method = data.get('method', 'lsb')
+        
+        if not image_data or not secret_message:
+            return JsonResponse({
+                'error': 'image_data et secret_message sont requis'
+            }, status=400)
+        
+        # Décoder l'image base64
+        try:
+            # Enlever le préfixe data:image/...;base64, si présent
+            if ',' in image_data:
+                image_data = image_data.split(',')[1]
+            
+            image_bytes = base64.b64decode(image_data)
+        except Exception as e:
+            return JsonResponse({
+                'error': f'Erreur de décodage base64: {str(e)}'
+            }, status=400)
+        
+        result = hide_text_in_image(image_bytes, secret_message, method)
+        return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
+    
+    except Exception as e:
+        import traceback
+        return JsonResponse({
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }, status=500)
+
+
+@csrf_exempt
+def api_image_stego_extract(request):
+    """
+    Extrait un message secret d'une image stéganographiée
+    
+    POST /api/stego/image/extract/
+    Body: {
+        "image_data": "base64_encoded_image",
+        "method": "lsb"
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        image_data = data.get('image_data')
+        method = data.get('method', 'lsb')
+        
+        if not image_data:
+            return JsonResponse({
+                'error': 'image_data est requis'
+            }, status=400)
+        
+        # Décoder l'image base64
+        try:
+            if ',' in image_data:
+                image_data = image_data.split(',')[1]
+            
+            image_bytes = base64.b64decode(image_data)
+        except Exception as e:
+            return JsonResponse({
+                'error': f'Erreur de décodage base64: {str(e)}'
+            }, status=400)
+        
+        result = extract_text_from_image(image_bytes, method)
+        return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
+    
+    except Exception as e:
+        import traceback
+        return JsonResponse({
+            'error': str(e),
+            'traceback': traceback.format_exc()
+        }, status=500)
+
+
+@csrf_exempt
+def api_stego_methods(request):
+    """
+    Retourne les méthodes de stéganographie disponibles
+    
+    GET /api/stego/methods/
+    """
+    return JsonResponse({
+        'text_methods': get_available_methods(),
+        'image_methods': get_image_methods()
+    }, json_dumps_params={'ensure_ascii': False})
+
+
+@csrf_exempt
+def api_analyze_cover_text(request):
+    """
+    Analyse la capacité d'un texte à cacher des messages
+    
+    POST /api/stego/analyze/text/
+    Body: {
+        "text": "Texte à analyser..."
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        text = data.get('text')
+        
+        if not text:
+            return JsonResponse({
+                'error': 'text est requis'
+            }, status=400)
+        
+        result = analyze_cover_text(text)
+        return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
+    
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+
+@csrf_exempt
+def api_analyze_image_capacity(request):
+    """
+    Analyse la capacité d'une image à cacher des messages
+    
+    POST /api/stego/analyze/image/
+    Body: {
+        "image_data": "base64_encoded_image"
+    }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        image_data = data.get('image_data')
+        
+        if not image_data:
+            return JsonResponse({
+                'error': 'image_data est requis'
+            }, status=400)
+        
+        # Décoder l'image
+        try:
+            if ',' in image_data:
+                image_data = image_data.split(',')[1]
+            
+            image_bytes = base64.b64decode(image_data)
+        except Exception as e:
+            return JsonResponse({
+                'error': f'Erreur de décodage base64: {str(e)}'
+            }, status=400)
+        
+        result = analyze_image_capacity(image_bytes)
+        return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
+    
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+
+@csrf_exempt
+def api_create_sample_image(request):
+    """
+    Crée une image blanche simple pour les tests
+    
+    GET /api/stego/sample-image/
+    Query params: width, height (optionnels)
+    """
+    width = int(request.GET.get('width', 200))
+    height = int(request.GET.get('height', 200))
+    
+    try:
+        image_bytes = create_sample_image(width, height)
+        image_base64 = base64.b64encode(image_bytes).decode('utf-8')
+        
+        return JsonResponse({
+            'image_data': f'data:image/png;base64,{image_base64}',
+            'width': width,
+            'height': height
+        })
+    
+    except Exception as e:
+        return JsonResponse({
+            'error': str(e)
+        }, status=500)
+
+
 

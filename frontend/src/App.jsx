@@ -3,10 +3,13 @@ import Header from './components/Header';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import AttackPanel from './components/AttackPanel';
+import ProtectionPanel from './components/ProtectionPanel';
+import SteganographyPanel from './components/SteganographyPanel';
 import './index.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState('register');
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f3f4f6' }}>
@@ -25,6 +28,18 @@ function App() {
             onClick={() => setActiveTab('login')}
           >
             🔑 Connexion
+          </button>
+          <button
+            className={`tab ${activeTab === 'protection' ? 'active' : ''}`}
+            onClick={() => setActiveTab('protection')}
+          >
+            🛡️ Protection
+          </button>
+          <button
+            className={`tab ${activeTab === 'stego' ? 'active' : ''}`}
+            onClick={() => setActiveTab('stego')}
+          >
+            🔐 Stéganographie
           </button>
           <button
             className={`tab ${activeTab === 'attacks' ? 'active' : ''}`}
@@ -59,7 +74,10 @@ function App() {
                     <strong>2. Connexion:</strong> Testez le déchiffrement en vous connectant.
                   </p>
                   <p style={{ marginBottom: '12px' }}>
-                    <strong>3. Attaques:</strong> Lancez des attaques pour craquer les mots de passe.
+                    <strong>3. Protection:</strong> Activez la protection contre les attaques répétées.
+                  </p>
+                  <p style={{ marginBottom: '12px' }}>
+                    <strong>4. Attaques:</strong> Lancez des attaques pour craquer les mots de passe.
                   </p>
                   
                   <div style={{ 
@@ -85,6 +103,7 @@ function App() {
             <div className="grid grid-2">
               <LoginForm onSuccess={(result) => {
                 console.log('Connexion réussie:', result);
+                setLoggedInUser(result.username);
               }} />
               
               <div className="card">
@@ -118,6 +137,135 @@ function App() {
                     <p style={{ fontSize: '14px', marginTop: '4px' }}>
                       Multiplication matricielle. Clé: matrice JSON
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'protection' && (
+            <div className="grid grid-2">
+              <ProtectionPanel username={loggedInUser} />
+              
+              <div className="card">
+                <h3 style={{ marginBottom: '16px', color: '#111827' }}>
+                  🔒 Qu'est-ce que la protection ?
+                </h3>
+                <div style={{ color: '#6b7280', lineHeight: '1.6' }}>
+                  <p style={{ marginBottom: '12px' }}>
+                    La protection limite les tentatives de connexion pour ralentir les attaques.
+                  </p>
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <strong style={{ color: '#111827' }}>Comment ça fonctionne :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px' }}>
+                      <li>Maximum de <strong>3 tentatives</strong> échouées</li>
+                      <li>Verrouillage automatique pour <strong>30 minutes</strong></li>
+                      <li>Compteur réinitialisé après connexion réussie</li>
+                    </ul>
+                  </div>
+                  
+                  <div style={{ 
+                    backgroundColor: '#dcfce7', 
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    marginTop: '16px',
+                    border: '1px solid #10b981'
+                  }}>
+                    <strong style={{ color: '#065f46' }}>✅ Avantages:</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px', color: '#065f46' }}>
+                      <li>Protection contre les attaques par force brute</li>
+                      <li>Ralentissement considérable des attaquants</li>
+                      <li>Notification des tentatives suspectes</li>
+                    </ul>
+                  </div>
+                  
+                  <div style={{ 
+                    backgroundColor: '#fee2e2', 
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    marginTop: '16px',
+                    border: '1px solid #dc2626'
+                  }}>
+                    <strong style={{ color: '#991b1b' }}>⚠️ Impact:</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px', color: '#991b1b' }}>
+                      <li>Attaque dictionnaire: de 5s à plusieurs heures</li>
+                      <li>Force brute: peut devenir impossible en temps réaliste</li>
+                      <li>Protection efficace contre les scripts automatisés</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'stego' && (
+            <div className="grid grid-2">
+              <SteganographyPanel />
+              
+              <div className="card">
+                <h3 style={{ marginBottom: '16px', color: '#111827' }}>
+                  🔐 Qu'est-ce que la stéganographie ?
+                </h3>
+                <div style={{ color: '#6b7280', lineHeight: '1.6' }}>
+                  <p style={{ marginBottom: '12px' }}>
+                    La stéganographie est l'art de cacher des messages secrets dans des supports apparemment anodins (texte, images, audio...).
+                  </p>
+                  
+                  <div style={{ marginBottom: '16px' }}>
+                    <strong style={{ color: '#111827' }}>Méthodes disponibles :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px' }}>
+                      <li><strong>Case-Based</strong> : Casse des lettres (MAJ/min) ✅ Recommandé</li>
+                      <li><strong>WhiteSpace</strong> : Espaces et tabulations invisibles</li>
+                      <li><strong>Zero-Width</strong> : Caractères Unicode invisibles</li>
+                      <li><strong>LSB Image</strong> : Modification des bits de pixels</li>
+                    </ul>
+                  </div>
+                  
+                  <div style={{ 
+                    backgroundColor: '#dbeafe', 
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    marginTop: '16px',
+                    border: '1px solid #3b82f6'
+                  }}>
+                    <strong style={{ color: '#1e40af' }}>🆚 Cryptographie vs Stéganographie:</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px', color: '#1e40af' }}>
+                      <li><strong>Cryptographie</strong> : Rend le message illisible (chiffrement)</li>
+                      <li><strong>Stéganographie</strong> : Cache l'existence du message</li>
+                      <li><strong>Combiné</strong> : Chiffrer puis cacher = double protection !</li>
+                    </ul>
+                  </div>
+                  
+                  <div style={{ 
+                    backgroundColor: '#fef3c7', 
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    marginTop: '16px',
+                    border: '1px solid #f59e0b'
+                  }}>
+                    <strong style={{ color: '#92400e' }}>💡 Capacité :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px', color: '#92400e' }}>
+                      <li><strong>Texte</strong> : 1 caractère caché = 8 lettres nécessaires (case-based)</li>
+                      <li><strong>Image 400×300</strong> : Jusqu'à 45,000 caractères !</li>
+                      <li><strong>Recommandation</strong> : Utiliser max 50% de la capacité</li>
+                    </ul>
+                  </div>
+
+                  <div style={{ 
+                    backgroundColor: '#dcfce7', 
+                    padding: '12px', 
+                    borderRadius: '6px', 
+                    marginTop: '16px',
+                    border: '1px solid #10b981'
+                  }}>
+                    <strong style={{ color: '#065f46' }}>🎓 Cas d'usage :</strong>
+                    <ul style={{ marginTop: '8px', marginLeft: '20px', color: '#065f46' }}>
+                      <li>Communication secrète (espionnage)</li>
+                      <li>Watermarking numérique (DRM)</li>
+                      <li>Preuve d'authenticité</li>
+                      <li>Stockage caché de données sensibles</li>
+                    </ul>
                   </div>
                 </div>
               </div>
