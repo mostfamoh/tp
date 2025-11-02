@@ -1,6 +1,26 @@
 import time
-from backend.cryptotoolbox.attack.utils import clean_text
+from backend.cryptotoolbox.attack.utils import clean_text, convert_to_alpha
 from backend.cryptotoolbox.cyphers.plaiyfair import encrypt_playfair
+
+def number_to_letters(num_str):
+    """
+    Convertit une chaîne de chiffres en lettres pour Playfair.
+    Exemple: "012" -> "ZEROONETWO", "123" -> "ONETWOTHREE"
+    
+    NOTE: Cette fonction n'est plus utilisée pour Playfair.
+    Utilisez convert_to_alpha() à la place pour la compatibilité.
+    """
+    digit_map = {
+        '0': 'ZERO', '1': 'ONE', '2': 'TWO', '3': 'THREE', '4': 'FOUR',
+        '5': 'FIVE', '6': 'SIX', '7': 'SEVEN', '8': 'EIGHT', '9': 'NINE'
+    }
+    result = ''
+    for digit in str(num_str):
+        if digit in digit_map:
+            result += digit_map[digit]
+        elif digit.isalpha():
+            result += digit.upper()
+    return result if result else num_str
 
 def run_dictionary_attack(algorithm, encrypted, key_data, dictionary, start_time, max_seconds, limit, attempts):
     """
@@ -50,7 +70,9 @@ def run_dictionary_attack(algorithm, encrypted, key_data, dictionary, start_time
             elif algorithm == 'playfair':
                 kw = key_data.get('keyword') if isinstance(key_data, dict) else None
                 if not kw: continue
-                cipher = encrypt_playfair(kw, word).upper()
+                # Utiliser convert_to_alpha pour la compatibilité (0->A, 1->B, etc.)
+                word_alpha = convert_to_alpha(word)
+                cipher = encrypt_playfair(kw, word_alpha).upper()
 
             elif algorithm == 'hill':
                 mat = key_data.get('matrix') if isinstance(key_data, dict) else None

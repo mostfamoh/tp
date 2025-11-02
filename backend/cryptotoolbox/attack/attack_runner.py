@@ -74,7 +74,7 @@ def run_attack(instruction: Dict[str, Any]) -> Dict[str, Any]:
     if not user:
         return {'error': 'User not found'}
 
-    algorithm = (algo_override or user.get('algorithm') or '').lower().replace('plafair', 'playfair').replace('cesar', 'caesar')
+    algorithm = (algo_override or user.get('algorithm') or '').lower().replace('plafair', 'playfair').replace('plaiyfair', 'playfair').replace('cesar', 'caesar')
     encrypted = user.get('password_encrypted')
     key_data_str = user.get('key_data', '{}')
     
