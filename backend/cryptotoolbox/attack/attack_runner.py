@@ -4,7 +4,7 @@ import time
 import os
 from typing import Dict, Any
 
-from .bruteforce import run_bruteforce_attack
+from .bruteforce import run_bruteforce_attack, brute_force_plaintext, choisir_alphabet, ALPHABET_PETIT, ALPHABET_CHIFFRES
 from .dictionaryattack import run_dictionary_attack
 from .utils import clean_text
 
@@ -66,13 +66,23 @@ def run_attack(instruction: Dict[str, Any]) -> Dict[str, Any]:
         else:
             return {'error': 'Operation aborted — unauthorized target. Create test_users.txt or use test_*/demo_*/tmp_* usernames.'}
 
-    db_path = os.path.join(repo_root, 'db.sqlite3')
-    try:
-        user = load_user_from_sqlite(db_path, target)
-    except Exception as e:
-        return {'error': f'Failed to read local DB: {e}'}
-    if not user:
-        return {'error': 'User not found'}
+    # If an override is provided, skip the DB lookup and build a fake user entry so
+    # callers can test the runner without a real sqlite DB entry.
+    if instruction.get('password_encrypted_override') is not None:
+        user = {
+            'username': target,
+            'password_encrypted': instruction.get('password_encrypted_override'),
+            'algorithm': instruction.get('algorithm') or 'plaintext',
+            'key_data': instruction.get('key_data') or {}
+        }
+    else:
+        db_path = os.path.join(repo_root, 'db.sqlite3')
+        try:
+            user = load_user_from_sqlite(db_path, target)
+        except Exception as e:
+            return {'error': f'Failed to read local DB: {e}'}
+        if not user:
+            return {'error': 'User not found'}
 
     algorithm = (algo_override or user.get('algorithm') or '').lower().replace('plafair', 'playfair').replace('plaiyfair', 'playfair').replace('cesar', 'caesar')
     encrypted = user.get('password_encrypted')
@@ -93,6 +103,13 @@ def run_attack(instruction: Dict[str, Any]) -> Dict[str, Any]:
     if not isinstance(key_data, dict):
         key_data = {}
 
+    # Support an optional override in the instruction for testing or external callers.
+    # If the caller provides 'password_encrypted_override', use it instead of reading DB.
+    if instruction.get('password_encrypted_override') is not None:
+        # allow overriding algorithm as well
+        encrypted = instruction.get('password_encrypted_override')
+        algorithm = (instruction.get('algorithm_override') or algorithm).lower()
+
 
     do_dictionary = mode in ('dictionary', 'both')
     do_bruteforce = mode in ('bruteforce', 'both')
@@ -105,13 +122,52 @@ def run_attack(instruction: Dict[str, Any]) -> Dict[str, Any]:
         matches.extend(dict_matches)
         if err: errors.append(err.get('error'))
 
+    plaintext_helper_info = None
     if do_bruteforce and not timeout_reached and not limit_reached:
-        bf_attempts, bf_matches, limit_reached, timeout_reached, err = run_bruteforce_attack(
-            algorithm, encrypted, limit, max_seconds, start_all, dictionary, playfair_keyspace
-        )
-        attempts += bf_attempts
-        matches.extend(bf_matches)
-        if err: errors.append(err.get('error'))
+        # Heuristic plaintext brute-force for very short passwords (3 or 6 chars)
+        # Only run automatically when the apparent alphabet is the small test set
+        # or digits (to avoid catastrophic full-alphabet work).
+        try:
+            if isinstance(encrypted, str) and len(encrypted) in (3, 6):
+                alph = choisir_alphabet(encrypted)
+                if alph in (ALPHABET_PETIT, ALPHABET_CHIFFRES):
+                    # run the plaintext brute force (target == encrypted)
+                    found, tried, elapsed = brute_force_plaintext(encrypted)
+                    attempts += tried
+                    if found:
+                        cand_clean = clean_text(found)
+                        mapping = {chr(ord('A') + i): str(i) for i in range(10)}
+                        digits = []
+                        for ch in cand_clean.upper():
+                            if ch in mapping:
+                                digits.append(mapping[ch])
+                            else:
+                                digits = None
+                                break
+                        cand_digits = ''.join(digits) if isinstance(digits, list) else None
+                        # Do NOT add as a candidate; this helper merely echoes the encrypted string.
+                        plaintext_helper_info = {
+                            'echo': cand_clean,
+                            'echo_raw': found,
+                            'echo_digits': cand_digits,
+                            'length': len(encrypted),
+                            'alphabet': alph
+                        }
+        except Exception as e:
+            # do not fail the whole run if plaintext helper raises
+            errors.append(f'Plaintext brute-force failed: {e}')
+
+        # Only run the classical keyspace brute-force when the algorithm is not
+        # the special 'plaintext' indicator (we already brute-forced the raw
+        # password above). This avoids returning an 'Unsupported algorithm'
+        # error from run_bruteforce_attack.
+        if algorithm != 'plaintext':
+            bf_attempts, bf_matches, limit_reached, timeout_reached, err = run_bruteforce_attack(
+                algorithm, encrypted, limit, max_seconds, start_all, dictionary, playfair_keyspace
+            )
+            attempts += bf_attempts
+            matches.extend(bf_matches)
+            if err: errors.append(err.get('error'))
 
     elapsed = time.perf_counter() - start_all
     truncated = False
@@ -124,6 +180,7 @@ def run_attack(instruction: Dict[str, Any]) -> Dict[str, Any]:
         'target_username': target,
         'algorithm': algorithm,
         'mode': mode,
+        'encrypted_target': encrypted,
         'attempts': attempts,
         'time_sec': round(elapsed, 6),
         'limit_reached': bool(limit_reached),
@@ -133,6 +190,8 @@ def run_attack(instruction: Dict[str, Any]) -> Dict[str, Any]:
         'notes': ('Truncated results' if truncated else ''),
         'errors': errors
     }
+    if plaintext_helper_info:
+        report['plaintext_helper'] = plaintext_helper_info
     return report
 
 

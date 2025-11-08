@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from crypto_lab.models import CustomUser
 from backend.cryptotoolbox.attack.attack_runner import run_attack
 from math import gcd
+from backend.cryptotoolbox.attack.bruteforce import brute_force_plaintext
 
 
 def save_attack_result(result: dict, algorithm: str):
@@ -220,6 +221,44 @@ def combined_attack(request):
         "dictionary_result": dict_result,
         "bruteforce_result": bf_result,
         "success": bf_result.get('matches_count', 0) > 0
+    }, json_dumps_params={'ensure_ascii': False})
+
+
+@csrf_exempt
+def plain_bruteforce(request):
+    """
+    POST /api/attack/plain_bruteforce/
+
+    Payload JSON:
+    { "target": "012", "show_progress_every": 500000 }
+
+    Runs the plaintext brute-force helper directly and returns a small JSON summary.
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST seulement'}, status=405)
+
+    try:
+        payload = json.loads(request.body)
+    except Exception:
+        return JsonResponse({'error': 'JSON invalide'}, status=400)
+
+    target = payload.get('target') or payload.get('target_plain') or payload.get('target_plaintext')
+    if not target:
+        return JsonResponse({'error': 'target requis'}, status=400)
+
+    show_progress_every = int(payload.get('show_progress_every', 500000))
+
+    # Run the helper (this prints progress to server stdout). It returns (found, attempts, elapsed_s)
+    try:
+        found, attempts, elapsed = brute_force_plaintext(target, show_progress_every=show_progress_every)
+    except Exception as e:
+        return JsonResponse({'error': f'Erreur during brute force: {e}'}, status=500)
+
+    return JsonResponse({
+        'target': target,
+        'found': found,
+        'attempts': attempts,
+        'time_sec': elapsed
     }, json_dumps_params={'ensure_ascii': False})
 
 

@@ -2,6 +2,8 @@
 
 A Django-based web application for simulating cryptographic attacks on classical ciphers (Caesar, Affine, Playfair, Hill). Built with Bootstrap 5 and vanilla JavaScript for an interactive user experience.
 
+See also: docs/features_attack_protection_stego_mitm_messaging.md for a full tour of Attacks, Protections, Steganography, Messaging, and the MITM demo.
+
 ## 🚀 Features
 
 - **User Management**: Register and login with encrypted passwords
@@ -25,32 +27,65 @@ A Django-based web application for simulating cryptographic attacks on classical
 
 ## 🔧 Installation
 
-1. **Clone the repository** (or navigate to project directory)
-```bash
-cd ssad_tp1
+1. Clonez le dépôt (ou placez-vous dans le répertoire du projet) :
+
+```powershell
+cd C:\Users\j\OneDrive\Desktop\ssad\tp
 ```
 
-2. **Install dependencies**
-```bash
-pip install django numpy
+2. Créez et activez un environnement virtuel (recommandé) :
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
-3. **Run migrations**
-```bash
+3. Installez les dépendances depuis `requirements.txt` :
+
+```powershell
+pip install -r requirements.txt
+# Si vous n'avez pas encore de requirements.txt :
+pip install django numpy Pillow
+```
+
+4. Appliquez les migrations Django :
+
+```powershell
 python manage.py migrate
 ```
 
-4. **Start the development server**
-```bash
+5. Démarrez le serveur de développement :
+
+```powershell
 python manage.py runserver
 ```
 
-5. **Access the application**
-   - Open your browser to: http://127.0.0.1:8000/
+6. Accédez à l'application
+
+- Ouvrez votre navigateur à : http://127.0.0.1:8000/
+
+7. (Optionnel) Si vous développez le frontend local (`frontend/`) :
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
 
 ## 📖 Usage
 
 ### Web Interface
+cd tp/frontend
+
+1. **Install dependencies**
+``` open another bash 
+npm install 
+```
+
+2. **Start the development server**
+```bash
+npm run dev
+```
 
 The main interface is accessible at `http://127.0.0.1:8000/` and includes:
 

@@ -1,0 +1,4 @@
+Django>=5.2.7
+numpy>=1.19
+Pillow>=9.0
+# Ajoutez ici d'autres dépendances si nécessaire (ex: django-rest-framework, matplotlib, etc.)

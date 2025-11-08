@@ -7,6 +7,8 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // Important pour les CAPTCHA: conserver le cookie de session pour lier l'image au code
+  withCredentials: true,
 });
 
 // Intercepteur pour gérer les erreurs
@@ -34,6 +36,19 @@ export const authService = {
     const response = await api.get(`/user/${username}/`);
     return response.data;
   },
+};
+
+// Services CAPTCHA
+export const captchaService = {
+  generate: async (params = {}) => {
+    // GET par défaut, POST accepté; on utilise GET avec params simples
+    const response = await api.get('/captcha/generate/', { params });
+    return response.data; // { image_data, ttl_seconds, success }
+  },
+  verify: async (captcha) => {
+    const response = await api.post('/captcha/verify/', { captcha });
+    return response.data; // { success: true }
+  }
 };
 
 // Services de protection de compte
@@ -82,6 +97,14 @@ export const attackService = {
       max_seconds: maxSeconds,
       limit: limit,
       mode: 'both'
+    });
+    return response.data;
+  },
+
+  plainBruteforce: async (target, showProgressEvery = 500000) => {
+    const response = await api.post('/attack/plain_bruteforce/', {
+      target: target,
+      show_progress_every: showProgressEvery
     });
     return response.data;
   },

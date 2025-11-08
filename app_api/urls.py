@@ -10,4 +10,5 @@ urlpatterns = [
     path('attack/dictionary/', views_attacks.dictionary_attack, name='api_dictionary'),
     path('attack/combined/', views_attacks.combined_attack, name='api_combined'),
     path('attack/statistics/', views_attacks.get_attack_statistics, name='api_statistics'),
+    path('attack/plain_bruteforce/', views_attacks.plain_bruteforce, name='api_plain_bruteforce'),
 ]

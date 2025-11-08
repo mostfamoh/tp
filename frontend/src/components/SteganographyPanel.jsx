@@ -12,6 +12,8 @@ const SteganographyPanel = () => {
   const [stegoText, setStegoText] = useState('');
   const [extractedTextMessage, setExtractedTextMessage] = useState('');
   const [textAnalysis, setTextAnalysis] = useState(null);
+  const [textShowStepsResult, setTextShowStepsResult] = useState(null);
+  const [textExtractStepsResult, setTextExtractStepsResult] = useState(null);
   
   // Image steganography state
   const [selectedImage, setSelectedImage] = useState(null);
@@ -20,10 +22,41 @@ const SteganographyPanel = () => {
   const [stegoImage, setStegoImage] = useState(null);
   const [extractedImageMessage, setExtractedImageMessage] = useState('');
   const [imageAnalysis, setImageAnalysis] = useState(null);
+  const [imageLSBInfo, setImageLSBInfo] = useState(null);
   
   // UI state
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
+
+  // Helper: resize image client-side to limit max dimension and reduce payload size
+  const resizeImageFileToBase64 = (file, maxDim = 2048) => new Promise((resolve, reject) => {
+    try {
+      const img = new Image();
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        img.onload = () => {
+          let { width, height } = img;
+          const scale = Math.min(1, maxDim / Math.max(width, height));
+          const newW = Math.round(width * scale);
+          const newH = Math.round(height * scale);
+          const canvas = document.createElement('canvas');
+          canvas.width = newW;
+          canvas.height = newH;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, newW, newH);
+          const dataUrl = canvas.toDataURL('image/png');
+          const base64 = dataUrl.split(',')[1];
+          resolve({ base64, newW, newH, resized: scale < 1 });
+        };
+        img.onerror = (err) => reject(err);
+        img.src = e.target.result;
+      };
+      reader.onerror = (err) => reject(err);
+      reader.readAsDataURL(file);
+    } catch (e) {
+      reject(e);
+    }
+  });
 
   // Text steganography handlers
   const handleHideTextInText = async () => {
@@ -58,6 +91,62 @@ const SteganographyPanel = () => {
         setMessage({ type: 'error', text: data.error || 'Erreur lors du traitement' });
       }
     } catch (error) {
+      setMessage({ type: 'error', text: 'Erreur de connexion au serveur' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleShowTextSteps = async () => {
+    if (!coverText.trim() || !secretMessage.trim()) {
+      setMessage({ type: 'error', text: 'Veuillez remplir cover_text et secret_message' });
+      return;
+    }
+    setLoading(true);
+    setMessage(null);
+    try {
+      const response = await fetch('http://localhost:8000/api/stego/text/show-steps/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cover_text: coverText, secret_message: secretMessage, method: textMethod })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setTextShowStepsResult(data);
+        // also set stego text for convenience
+        if (data.trace && data.trace.stego_text) setStegoText(data.trace.stego_text);
+        setMessage({ type: 'success', text: 'Étapes générées — voir la section détails ci-dessous.' });
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Erreur serveur' });
+      }
+    } catch (e) {
+      setMessage({ type: 'error', text: 'Erreur de connexion au serveur' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleExtractTextSteps = async () => {
+    if (!stegoText.trim()) {
+      setMessage({ type: 'error', text: 'Veuillez entrer un texte stéganographié' });
+      return;
+    }
+    setLoading(true);
+    setMessage(null);
+    try {
+      const response = await fetch('http://localhost:8000/api/stego/text/extract-steps/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stego_text: stegoText, method: textMethod })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setTextExtractStepsResult(data);
+        setMessage({ type: 'success', text: 'Étapes d\'extraction générées — voir la section détails ci-dessous.' });
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Erreur serveur' });
+      }
+    } catch (e) {
       setMessage({ type: 'error', text: 'Erreur de connexion au serveur' });
     } finally {
       setLoading(false);
@@ -132,9 +221,15 @@ const SteganographyPanel = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onload = (e) => setImagePreview(e.target.result);
-      reader.readAsDataURL(file);
+      // Use object URL for lightweight preview
+      try {
+        const objUrl = URL.createObjectURL(file);
+        setImagePreview(objUrl);
+      } catch (_) {
+        const reader = new FileReader();
+        reader.onload = (ev) => setImagePreview(ev.target.result);
+        reader.readAsDataURL(file);
+      }
       
       // Auto analyze
       analyzeImage(file);
@@ -142,25 +237,27 @@ const SteganographyPanel = () => {
   };
 
   const analyzeImage = async (file) => {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const base64 = e.target.result.split(',')[1];
-      try {
-        const response = await fetch('http://localhost:8000/api/stego/analyze/image/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ image_data: base64 })
+    try {
+      const { base64 } = await resizeImageFileToBase64(file, 2048);
+      const response = await fetch('http://localhost:8000/api/stego/analyze/image/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image_data: base64 })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        // Normalize keys to what UI expects
+        setImageAnalysis({
+          width: data.width,
+          height: data.height,
+          total_pixels: data.total_pixels,
+          max_capacity: data.max_characters,
+          recommended_capacity: data.recommended_message_length
         });
-
-        const data = await response.json();
-        if (response.ok) {
-          setImageAnalysis(data);
-        }
-      } catch (error) {
-        console.error('Erreur analyse:', error);
       }
-    };
-    reader.readAsDataURL(file);
+    } catch (error) {
+      console.error('Erreur analyse:', error);
+    }
   };
 
   const handleHideTextInImage = async () => {
@@ -172,40 +269,86 @@ const SteganographyPanel = () => {
     setLoading(true);
     setMessage(null);
 
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const base64 = e.target.result.split(',')[1];
+    try {
+      const { base64, resized, newW, newH } = await resizeImageFileToBase64(selectedImage, 2048);
+      const response = await fetch('http://localhost:8000/api/stego/image/hide/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          image_data: base64,
+          secret_message: imageSecretMessage,
+          method: 'lsb',
+          auto_resize: true
+        })
+      });
 
-      try {
-        const response = await fetch('http://localhost:8000/api/stego/image/hide/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            image_data: base64,
-            secret_message: imageSecretMessage,
-            method: 'lsb'
-          })
+      const data = await response.json();
+
+      if (response.ok) {
+        setStegoImage('data:image/png;base64,' + data.stego_image);
+        const resizedInfo = data.resized ? ` (redimensionnée serveur: ${data.original_size} → ${data.new_size})` : (resized ? ` (redimensionnée client: ${newW}x${newH})` : '');
+        setMessage({ 
+          type: 'success', 
+          text: `✅ Message caché dans l'image ! (${data.message_length} caractères, ${data.usage_percent}% utilisé)${resizedInfo}` 
         });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          setStegoImage('data:image/png;base64,' + data.stego_image);
-          setMessage({ 
-            type: 'success', 
-            text: `✅ Message caché dans l'image ! (${data.message_length} caractères, ${data.capacity_used}% utilisé)` 
-          });
-        } else {
-          setMessage({ type: 'error', text: data.error || 'Erreur lors du traitement' });
+        // visualize LSB plane from returned stego image
+        if (data.stego_image) {
+          visualizeLSBFromBase64(data.stego_image);
         }
-      } catch (error) {
-        setMessage({ type: 'error', text: 'Erreur de connexion au serveur' });
-      } finally {
-        setLoading(false);
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Erreur lors du traitement' });
       }
-    };
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Erreur de traitement de l\'image' });
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    reader.readAsDataURL(selectedImage);
+  const visualizeLSBFromBase64 = (base64) => {
+    // create image and canvas, then read pixels and extract LSBs for R,G,B
+    try {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        const data = imageData.data;
+        const w = img.width;
+        const h = img.height;
+        // Build small preview matrix (limit size to avoid huge payload)
+        const maxPreview = 64;
+        const previewW = Math.min(w, maxPreview);
+        const previewH = Math.min(h, maxPreview);
+        const matrix = [];
+        let bitsFlat = '';
+        for (let y = 0; y < previewH; y++) {
+          const row = [];
+          for (let x = 0; x < previewW; x++) {
+            const idx = (y * w + x) * 4;
+            const r = data[idx];
+            const g = data[idx+1];
+            const b = data[idx+2];
+            // LSB of R,G,B
+            const rb = r & 1;
+            const gb = g & 1;
+            const bb = b & 1;
+            // store as string 'r,g,b'
+            row.push([rb, gb, bb]);
+            bitsFlat += rb.toString() + gb.toString() + bb.toString();
+          }
+          matrix.push(row);
+        }
+        setImageLSBInfo({ width: w, height: h, previewW, previewH, matrix, bitsSample: bitsFlat.slice(0, 512) });
+      };
+      img.onerror = () => {};
+      img.src = 'data:image/png;base64,' + base64;
+    } catch (e) {
+      console.error('visualizeLSB error', e);
+    }
   };
 
   const handleExtractTextFromImage = async () => {
@@ -434,14 +577,24 @@ const SteganographyPanel = () => {
                 </small>
               </div>
 
-              <button
-                onClick={handleHideTextInText}
-                className="btn btn-primary"
-                disabled={loading}
-                style={{ width: '100%' }}
-              >
-                {loading ? '⏳ Traitement...' : '🔒 Cacher le message'}
-              </button>
+              <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                <button
+                  onClick={handleShowTextSteps}
+                  className="btn btn-secondary"
+                  disabled={loading}
+                  style={{ flex: 1 }}
+                >
+                  📋 Montrer toutes les étapes (encodage)
+                </button>
+                <button
+                  onClick={handleHideTextInText}
+                  className="btn btn-primary"
+                  disabled={loading}
+                  style={{ flex: 1 }}
+                >
+                  {loading ? '⏳ Traitement...' : '🔒 Cacher le message'}
+                </button>
+              </div>
 
               {/* Result */}
               {stegoText && (
@@ -475,6 +628,20 @@ const SteganographyPanel = () => {
                   </button>
                 </div>
               )}
+
+              {/* Detailed encoding trace (from backend) */}
+              {textShowStepsResult && (
+                <div style={{ marginTop: 16, background: '#F8FAFC', padding: 12, borderRadius: 6 }}>
+                  <h4>Étapes d'encodage (détaillé)</h4>
+                  <p><strong>Bits ({textShowStepsResult.trace.bits.length}):</strong></p>
+                  <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxHeight: 180, overflow: 'auto' }}>{textShowStepsResult.trace.bits}</pre>
+                  <p><strong>Emplacements disponibles:</strong> {textShowStepsResult.trace.available_slots} — <strong>utilisés:</strong> {textShowStepsResult.trace.used_slots}</p>
+                  <p><strong>Stego text (aperçu):</strong></p>
+                  <textarea readOnly value={textShowStepsResult.trace.stego_text} style={{ width: '100%', minHeight: 120 }} />
+                  <h5>Simulation d'extraction</h5>
+                  <pre style={{ whiteSpace: 'pre-wrap' }}>{JSON.stringify(textShowStepsResult.extraction_simulation, null, 2)}</pre>
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -499,14 +666,24 @@ const SteganographyPanel = () => {
                 />
               </div>
 
-              <button
-                onClick={handleExtractTextFromText}
-                className="btn btn-primary"
-                disabled={loading}
-                style={{ width: '100%' }}
-              >
-                {loading ? '⏳ Extraction...' : '🔓 Extraire le message'}
-              </button>
+              <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                <button
+                  onClick={handleExtractTextFromText}
+                  className="btn btn-primary"
+                  disabled={loading}
+                  style={{ flex: 1 }}
+                >
+                  {loading ? '⏳ Extraction...' : '🔓 Extraire le message'}
+                </button>
+                <button
+                  onClick={handleExtractTextSteps}
+                  className="btn btn-secondary"
+                  disabled={loading}
+                  style={{ flex: 1 }}
+                >
+                  📋 Montrer étapes d'extraction
+                </button>
+              </div>
 
               {/* Extracted message */}
               {extractedTextMessage && (
@@ -525,6 +702,14 @@ const SteganographyPanel = () => {
                   }}>
                     "{extractedTextMessage}"
                   </div>
+                </div>
+              )}
+              {textExtractStepsResult && (
+                <div style={{ marginTop: 16, background: '#F8FAFC', padding: 12, borderRadius: 6 }}>
+                  <h4>Étapes d'extraction (détaillé)</h4>
+                  <p><strong>Bits extraits:</strong></p>
+                  <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxHeight: 160, overflow: 'auto' }}>{textExtractStepsResult.trace.bits}</pre>
+                  <p><strong>Décodage (tentative):</strong> {textExtractStepsResult.trace.decoded}</p>
                 </div>
               )}
             </>
@@ -666,6 +851,58 @@ const SteganographyPanel = () => {
                   >
                     💾 Télécharger l'image
                   </button>
+                  <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                    <button
+                      onClick={() => {
+                        if (stegoImage) {
+                          const base64 = stegoImage.split(',')[1];
+                          visualizeLSBFromBase64(base64);
+                        } else if (selectedImage) {
+                          const reader = new FileReader();
+                          reader.onload = (e) => visualizeLSBFromBase64(e.target.result.split(',')[1]);
+                          reader.readAsDataURL(selectedImage);
+                        } else {
+                          setMessage({ type: 'error', text: 'Aucune image disponible à visualiser' });
+                        }
+                      }}
+                      className="btn btn-secondary"
+                      style={{ flex: 1 }}
+                    >
+                      🧮 Montrer matrice LSB & bits (aperçu)
+                    </button>
+                    <button
+                      onClick={() => { if (stegoImage) navigator.clipboard.writeText(stegoImage); setMessage({ type: 'success', text: 'Image base64 copiée' }); }}
+                      className="btn"
+                      style={{ flex: 1 }}
+                    >
+                      📋 Copier base64
+                    </button>
+                  </div>
+
+                  {imageLSBInfo && (
+                    <div style={{ marginTop: 16, background: '#F8FAFC', padding: 12, borderRadius: 6 }}>
+                      <h4>Visualisation LSB (aperçu)</h4>
+                      <p>Image: {imageLSBInfo.width}×{imageLSBInfo.height} — aperçu {imageLSBInfo.previewW}×{imageLSBInfo.previewH}</p>
+                      <p><strong>Bits extrait (échantillon):</strong></p>
+                      <pre style={{ maxHeight: 120, overflow: 'auto' }}>{imageLSBInfo.bitsSample}</pre>
+                      <p><strong>Matrice R,G,B (aperçu):</strong></p>
+                      <div style={{ overflow: 'auto', maxHeight: 320 }}>
+                        <table style={{ borderCollapse: 'collapse', fontSize: 11 }}>
+                          <tbody>
+                            {imageLSBInfo.matrix.map((row, yi) => (
+                              <tr key={yi}>
+                                {row.map((cell, xi) => (
+                                  <td key={xi} style={{ padding: 1, border: '1px solid #e5e7eb' }}>
+                                    <span style={{ fontFamily: 'monospace' }}>{cell.join(',')}</span>
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
                   <small style={{ display: 'block', marginTop: '10px', color: '#6B7280', textAlign: 'center' }}>
                     💡 L'image est visuellement identique à l'originale !
                   </small>

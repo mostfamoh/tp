@@ -155,83 +155,79 @@ def _extract_lsb(image_data):
     if img.mode != 'RGB':
         img = img.convert('RGB')
     
-    # Convertir en array numpy
+    # Convertir en array numpy et aplatir
     img_array = np.array(img)
     height, width, channels = img_array.shape
-    
-    # Extraire les LSB
-    binary_data = ''
-    
-    # D'abord extraire la longueur (32 bits)
-    bits_count = 0
-    for i in range(height):
-        for j in range(width):
-            for k in range(channels):
-                if bits_count < 32:
-                    binary_data += str(img_array[i, j, k] & 1)
-                    bits_count += 1
-                else:
-                    break
-            if bits_count >= 32:
-                break
-        if bits_count >= 32:
-            break
-    
-    # Décoder la longueur
-    if len(binary_data) < 32:
+    flat = img_array.reshape(-1)
+    bits = flat & 1  # tableau des LSB
+
+    # Vérifier qu'on a au moins 32 bits pour la longueur
+    if bits.size < 32:
         return {
             'secret_message': '',
             'method': 'lsb',
             'success': False,
-            'error': 'Impossible de lire la longueur du message'
+            'error': 'Image trop petite pour contenir la longueur (32 bits)'
         }
-    
-    message_length = int(binary_data[:32], 2)
-    
-    # Vérifier que la longueur est raisonnable
-    if message_length <= 0 or message_length > 10000:
+
+    # Lire la longueur (32 bits)
+    length_bits = bits[:32]
+    length_str = ''.join('1' if b & 1 else '0' for b in length_bits)
+    try:
+        message_length = int(length_str, 2)
+    except Exception:
         return {
             'secret_message': '',
             'method': 'lsb',
             'success': False,
-            'error': f'Longueur de message invalide: {message_length}'
+            'error': 'Longueur encodée invalide'
         }
-    
-    # Calculer le nombre de bits nécessaires (message + délimiteur)
+
+    # Bornes raisonnables et capacité
     delimiter = "<<<END>>>"
+    capacity_bits = bits.size
+    max_chars_by_capacity = max(0, (capacity_bits - 32) // 8)
+    if message_length <= 0 or message_length > max_chars_by_capacity or message_length > 1_000_000:
+        return {
+            'secret_message': '',
+            'method': 'lsb',
+            'success': False,
+            'error': f'Longueur de message invalide ou dépasse la capacité ({message_length} chars)'
+        }
+
     total_chars = message_length + len(delimiter)
     total_bits = total_chars * 8
-    
-    # Extraire le reste des bits
-    binary_data = binary_data[32:]  # Enlever les 32 bits de longueur
-    
-    for i in range(height):
-        for j in range(width):
-            for k in range(channels):
-                if len(binary_data) < total_bits + 32:
-                    if bits_count >= 32:  # Sauter les 32 premiers bits déjà extraits
-                        binary_data += str(img_array[i, j, k] & 1)
-                    bits_count += 1
-                else:
-                    break
-            if len(binary_data) >= total_bits:
-                break
-        if len(binary_data) >= total_bits:
-            break
-    
-    # Convertir binaire en texte
-    message = ''
-    for i in range(0, len(binary_data), 8):
-        if i + 8 <= len(binary_data):
-            byte = binary_data[i:i+8]
-            char_code = int(byte, 2)
-            if 32 <= char_code <= 126 or char_code in [10, 13]:  # Caractères imprimables + newlines
-                message += chr(char_code)
-    
-    # Chercher le délimiteur
-    if delimiter in message:
-        message = message[:message.index(delimiter)]
-    
+    if 32 + total_bits > capacity_bits:
+        return {
+            'secret_message': '',
+            'method': 'lsb',
+            'success': False,
+            'error': 'Données insuffisantes pour extraire le message complet'
+        }
+
+    data_bits = bits[32:32 + total_bits]
+    # Convertir en texte (8 bits -> 1 octet)
+    message_bytes = bytearray()
+    for i in range(0, data_bits.size, 8):
+        byte_val = 0
+        for j in range(8):
+            if data_bits[i + j] & 1:
+                byte_val |= (1 << (7 - j))
+        message_bytes.append(byte_val)
+
+    try:
+        msg_full = message_bytes.decode('utf-8', errors='ignore')
+    except Exception:
+        # Fallback ASCII
+        msg_full = ''.join(chr(b) for b in message_bytes if 32 <= b <= 126 or b in (10, 13))
+
+    # Tronquer au délimiteur
+    if delimiter in msg_full:
+        message = msg_full[:msg_full.index(delimiter)]
+    else:
+        # Si pas de délimiteur, on coupe à message_length
+        message = msg_full[:message_length]
+
     return {
         'secret_message': message,
         'method': 'lsb',

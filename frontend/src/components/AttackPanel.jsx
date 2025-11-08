@@ -7,6 +7,7 @@ const AttackPanel = () => {
   const [result, setResult] = useState(null);
   const [attackType, setAttackType] = useState('bruteforce');
   const [dictionaryType, setDictionaryType] = useState('digits6');
+  const [plainTarget, setPlainTarget] = useState('');
 
   const handleAttack = async (type) => {
     if (!username.trim()) {
@@ -103,7 +104,7 @@ const AttackPanel = () => {
         </small>
       </div>
 
-      <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+  <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
         <button
           onClick={() => handleAttack('dictionary')}
           className="btn btn-primary"
@@ -148,6 +149,41 @@ const AttackPanel = () => {
             '🔄 Combinée'
           )}
         </button>
+      </div>
+
+      {/* Plaintext brute-force quick tester */}
+      <div style={{ marginBottom: '20px' }}>
+        <label htmlFor="plain-target">Tester bruteforce (chaîne cible directe)</label>
+        <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+          <input
+            id="plain-target"
+            type="text"
+            className="form-control"
+            value={plainTarget}
+            onChange={(e) => setPlainTarget(e.target.value)}
+            placeholder="Entrez '012' ou '123456'"
+            disabled={loading}
+          />
+          <button
+            onClick={async () => {
+              if (!plainTarget.trim()) return alert('Entrez une chaîne cible');
+              setLoading(true);
+              setResult(null);
+              try {
+                const data = await attackService.plainBruteforce(plainTarget);
+                setResult(data);
+              } catch (err) {
+                setResult({ error: err.message || 'Erreur' });
+              } finally {
+                setLoading(false);
+              }
+            }}
+            className="btn btn-accent"
+            disabled={loading}
+          >
+            {loading ? 'En cours...' : '🔎 Brute (Plain)'}
+          </button>
+        </div>
       </div>
 
       {result && (
@@ -447,6 +483,46 @@ const AttackPanel = () => {
                     🔑 4. Candidats de Mot de Passe Trouvés
                   </h3>
                   
+                  {/* compute best match */}
+                  {(() => {
+                    // Compute best match (first high confidence, else first result)
+                    const best = (() => {
+                      const high = result.matches.find(m => m.confidence === 'high');
+                      if (high) return high;
+                      // Prefer a candidate that has a numeric projection (A–J → 0–9)
+                      const digitsCandidate = result.matches.find(m => m.candidate_plaintext_digits);
+                      return digitsCandidate || result.matches[0];
+                    })();
+                    if (best) {
+                      // show a prominent highlighted banner for the best match
+                      const raw = (best.candidate_plaintext_raw ?? best.candidate_plaintext) || '';
+                      const digits = best.candidate_plaintext_digits || null;
+                      return (
+                        <div style={{ marginBottom: '16px' }}>
+                          <div style={{
+                            background: 'linear-gradient(90deg, #10b98122, #10b98111)',
+                            border: '2px solid #10b981',
+                            padding: '12px 16px',
+                            borderRadius: '8px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '12px'
+                          }}>
+                            <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#065f46' }}>⭐ Meilleur candidat</div>
+                            <div style={{ fontSize: '20px', fontWeight: '900', color: '#064e3b', fontFamily: 'monospace' }}>{String(raw).toLowerCase()}</div>
+                            {digits && (
+                              <div style={{ fontSize: '16px', color: '#065f46', fontFamily: 'monospace' }}>
+                                (= {digits})
+                              </div>
+                            )}
+                            <div style={{ marginLeft: 'auto', fontSize: '13px', color: '#065f46' }}>{best.confidence?.toUpperCase() || ''}</div>
+                          </div>
+                        </div>
+                      );
+                    }
+                    return null;
+                  })()}
+
                   {/* Statistiques rapides */}
                   <div style={{ 
                     display: 'grid', 
@@ -524,7 +600,7 @@ const AttackPanel = () => {
 
                             {/* Contenu */}
                             <div style={{ flex: 1 }}>
-                              {/* Texte déchiffré */}
+                              {/* Texte déchiffré (human-friendly lowercase) */}
                               <div style={{ marginBottom: '8px' }}>
                                 <div style={{ fontSize: '11px', color: '#6b7280', marginBottom: '4px' }}>
                                   🔤 Texte Déchiffré:
@@ -540,7 +616,12 @@ const AttackPanel = () => {
                                   borderRadius: '4px',
                                   display: 'inline-block'
                                 }}>
-                                  {match.candidate_plaintext}
+                                  {String(match.candidate_plaintext_raw ?? match.candidate_plaintext).toLowerCase()}
+                                  {match.candidate_plaintext_digits && (
+                                    <span style={{ marginLeft: '8px', fontSize: '14px', color: '#065f46' }}>
+                                      (= {match.candidate_plaintext_digits})
+                                    </span>
+                                  )}
                                   {match.confidence === 'high' && (
                                     <span style={{ marginLeft: '12px', fontSize: '16px' }}>⭐</span>
                                   )}
@@ -635,7 +716,20 @@ const AttackPanel = () => {
                         </div>
                         <p style={{ margin: 0, fontSize: '14px', color: '#065f46' }}>
                           Le mot de passe le plus probable est: <strong style={{ fontSize: '16px' }}>
-                            "{result.matches.find(m => m.confidence === 'high')?.candidate_plaintext}"
+                            {
+                              (() => {
+                                const best = (() => {
+                                  const high = result.matches.find(m => m.confidence === 'high');
+                                  if (high) return high;
+                                  const digitsCandidate = result.matches.find(m => m.candidate_plaintext_digits);
+                                  return digitsCandidate || result.matches[0];
+                                })();
+                                if (!best) return 'N/A';
+                                const raw = (best.candidate_plaintext_raw ?? best.candidate_plaintext) || '';
+                                const digits = best.candidate_plaintext_digits || null;
+                                return digits ? `${String(raw).toLowerCase()} (= ${digits})` : String(raw).toLowerCase();
+                              })()
+                            }
                           </strong>
                         </p>
                       </div>

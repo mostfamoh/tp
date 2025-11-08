@@ -15,7 +15,79 @@ from backend.cryptotoolbox.steganography import (
 )
 from backend.cryptotoolbox.steganography.text_stego import get_available_methods, analyze_cover_text
 from backend.cryptotoolbox.steganography.image_stego import analyze_image_capacity, create_sample_image, get_image_methods
+from PIL import Image, ImageDraw, ImageFont
+import io
+import random
+import string
 import base64
+import traceback
+
+
+def text_to_bits(text):
+    """Convertit un texte en bits (chaîne de 0 et 1)."""
+    return ''.join(format(ord(c), '08b') for c in text)
+
+
+def bits_to_text(bits):
+    """Convertit une chaîne binaire en texte (8 bits = 1 caractère)."""
+    chars = [bits[i:i+8] for i in range(0, len(bits), 8)]
+    return ''.join(chr(int(b, 2)) for b in chars)
+
+
+def decode_message_from_text(stego_text, bit_length):
+    """Extrait les bits selon la casse, puis reconvertit en texte."""
+    bits = []
+    for c in stego_text:
+        if c.isalpha():
+            bits.append('1' if c.isupper() else '0')
+        if len(bits) >= bit_length:
+            break
+    return bits_to_text(''.join(bits))
+
+
+def build_paper_style_case(cover_text, secret_message, stego_text, bit_placements, bits):
+    """Construit la représentation "papier" (string) pour la méthode 'case'."""
+    lines = []
+    lines.append('===== ÉTAPES DÉTAILLÉES =====')
+    lines.append(f"Message à cacher : {secret_message}")
+    lines.append(f"Nombre de caractères : {len(secret_message)}")
+    lines.append(f"Bits ({len(bits)}) : {bits}")
+    total_letters = sum(1 for c in cover_text if c.isalpha())
+    lines.append(f"Emplacements alphabétiques disponibles : {total_letters}\n")
+    lines.append('Conversion caractère → bits :')
+    byte_groups = [bits[i:i+8] for i in range(0, len(bits), 8)]
+    for ch, b in zip(secret_message, byte_groups):
+        lines.append(f"  '{ch}' → {b}")
+
+    lines.append('\nEncodage bit par bit :')
+    lines.append('----------------------')
+    for i, bp in enumerate(bit_placements, start=1):
+        orig = bp.get('original_char', '')
+        tr = bp.get('transformed', '')
+        bit = bp.get('bit', '')
+        lines.append(f"{i:02d}. Lettre '{orig}' → bit={bit} → '{tr}'")
+
+    lines.append('----------------------')
+    lines.append(f"Bits utilisés : {len(bit_placements)}/{len(bits)}")
+    lines.append('Texte final après masquage :\n')
+    excerpt = stego_text[:800]
+    lines.append(excerpt)
+
+    lines.append('\n==============================')
+    lines.append('=== Vérification du décodage ===')
+    # decode for verification
+    try:
+        decoded = decode_message_from_text(stego_text, len(bits))
+        extracted_bits = text_to_bits(decoded)
+    except Exception:
+        decoded = '<decoding failed>'
+        extracted_bits = ''
+
+    lines.append(f"Bits extraits : {extracted_bits}")
+    lines.append(f"Message décodé : {decoded}")
+    lines.append('==============================')
+
+    return '\n'.join(lines)
 
 
 def index(request):
@@ -229,6 +301,7 @@ def login_user(request):
     data = json.loads(request.body)
     username = data.get('username')
     password_input = data.get('password')
+    captcha_value = data.get('captcha')
 
     try:
         user = CustomUser.objects.get(username=username)
@@ -245,6 +318,15 @@ def login_user(request):
             'remaining_minutes': remaining_minutes
         }, status=403)
     
+    # Si la protection est activée, exiger un CAPTCHA correct
+    if user.protection_enabled:
+        expected = request.session.get('captcha_code')
+        if not captcha_value or not expected or str(captcha_value).strip().upper() != str(expected).upper():
+            return JsonResponse({
+                'error': 'CAPTCHA requis ou incorrect',
+                'captcha_required': True
+            }, status=400)
+
     # Parser la clé stockée selon l'algorithme
     try:
         algorithm = user.algorithm.lower()
@@ -272,6 +354,12 @@ def login_user(request):
     if decrypted_pass == password_to_check:
         # Connexion réussie - réinitialiser les tentatives échouées
         user.reset_failed_attempts()
+        # Invalider le captcha une fois utilisé
+        if 'captcha_code' in request.session:
+            try:
+                del request.session['captcha_code']
+            except Exception:
+                pass
         return JsonResponse({
             'message': f'Welcome back {username}!',
             'username': username,
@@ -1083,6 +1171,101 @@ def api_text_stego_hide(request):
             }, status=400)
         
         result = hide_text_in_text(cover_text, secret_message, method)
+
+        # Détails pédagogiques: étapes et limites (comme une solution sur papier)
+        details = {
+            'method': method,
+            'steps': [],
+            'capacity_estimate': None,
+            'notes': []
+        }
+
+        # Estimer la capacité (nombre d'emplacements simples: espaces + retours)
+        spaces = cover_text.count(' ')
+        newlines = cover_text.count('\n')
+        rough_slots = spaces + newlines
+        details['capacity_estimate'] = {
+            'available_slots': rough_slots,
+            'message_length_chars': len(secret_message),
+            'message_length_bytes': len(secret_message.encode('utf-8'))
+        }
+
+        # Calcul plus détaillé de capacité en bits/bytes selon méthode
+        if method == 'whitespace' or method == 'case':
+            # Ces méthodes utilisent typiquement 1 bit par emplacement (espace ou lettre)
+            details['capacity_bits'] = rough_slots
+            details['capacity_bytes'] = rough_slots // 8
+            details['capacity_calculation'] = '1 bit per usable slot (space or letter).'
+        elif method == 'zerowidth':
+            # Zero-width can be inserted between characters
+            details['capacity_bits'] = len(cover_text)
+            details['capacity_bytes'] = len(cover_text) // 8
+            details['capacity_calculation'] = '1 bit per possible insertion point (between characters).'
+
+        # Exemple de conversion du message en bits (UTF-8) pour expliquer comment encoder
+        try:
+            msg_bytes = secret_message.encode('utf-8')
+            bits_example = ''.join(f"{b:08b}" for b in msg_bytes)
+            details['conversion'] = {
+                'message_bytes': list(msg_bytes),
+                'bits': bits_example,
+                'note': 'Use UTF-8 encoding. Optionally prefix the message with a fixed-size length field (e.g. 32 bits) to know when to stop during extraction.'
+            }
+        except Exception:
+            details['conversion'] = {'error': 'Failed to convert message to bytes for example.'}
+
+        # Stratégies pour choisir les emplacements (important pour robustesse/répétabilité)
+        details['placement_strategies'] = [
+            {
+                'name': 'sequential',
+                'description': 'Use the first N available slots in left-to-right order. Simple and deterministic.'
+            },
+            {
+                'name': 'pseudo-random',
+                'description': 'Use a PRNG with a known seed (shared secret) to pick slot indices. More stealthy, requires the same seed for extraction.'
+            },
+            {
+                'name': 'key-derived',
+                'description': 'Derive positions from a cryptographic key or hash (e.g. HMAC) to make placement dependent on a password/key.'
+            }
+        ]
+        details['recommended'] = 'For teaching/demos use sequential. For real use, prefer pseudo-random or key-derived plus a length prefix.'
+
+        if method == 'whitespace':
+            details['steps'] = [
+                '1) Convertir le message secret en bits (UTF-8).',
+                "2) Choisir une règle d'encodage: par exemple, 'absence d'espace' = bit 0, 'espace double' = bit 1, ou espace simple/fin de ligne comme délimiteurs.",
+                '3) Parcourir le texte de couverture et appliquer la règle aux emplacements choisis (espaces ou fins de ligne).',
+                '4) Pour l’extraction, lire les emplacements dans le même ordre et reconstruire la suite de bits puis la chaîne UTF-8.'
+            ]
+            details['notes'].append('Très sensible aux opérations de normalisation du texte (trim, collapse spaces).')
+            details['notes'].append('Capacité approximative = nombre d’espaces/retours utilisables.')
+
+        elif method == 'zerowidth':
+            details['steps'] = [
+                '1) Convertir le message secret en bits (UTF-8).',
+                "2) Choisir un mapping: par exemple U+200B = '0', U+200C = '1'.",
+                '3) Insérer les caractères zero-width entre caractères/mots du texte de couverture selon l’ordre des bits.',
+                '4) Extraction: détecter et lire la séquence de zero-width, reconstruire les bits et décoder en UTF-8.'
+            ]
+            details['notes'].append('Invisible à l’œil, mais certains nettoyages/sanitizers HTML peuvent les supprimer.')
+
+        elif method == 'case':
+            details['steps'] = [
+                '1) Convertir le message secret en bits.',
+                "2) Pour chaque lettre alphabétique dans le texte de couverture: définir minuscule => bit 0, majuscule => bit 1 (ou l’inverse).",
+                '3) Extraction: lire la casse des lettres dans le même ordre pour reconstruire les bits et décoder.'
+            ]
+            details['notes'].append('Modifie visuellement la casse des lettres; peut être altéré par normalisation (lower/upper).')
+
+        else:
+            details['steps'] = ['Méthode non standard: consultez la documentation.']
+
+        # Ajouter les détails au résultat renvoyé
+        if isinstance(result, dict):
+            result.setdefault('details', {})
+            result['details'].update(details)
+
         return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
     
     except Exception as e:
@@ -1116,12 +1299,384 @@ def api_text_stego_extract(request):
             }, status=400)
         
         result = extract_text_from_text(stego_text, method)
+
+        # Détails pédagogiques sur l'extraction
+        details = {
+            'method': method,
+            'steps': [],
+            'notes': []
+        }
+
+        # Fournir une explication détaillée de la conversion bits->message
+        details['extraction_conversion'] = {
+            'note': 'Lors de l’extraction, collectez la suite de bits dans l’ordre, groupez par 8 et décodez en UTF-8. Si le message a été précédé d’un préfixe longueur, utilisez-le pour arrêter la lecture.'
+        }
+
+        # Conseils pour détecter les emplacements choisis
+        details['how_to_find_slots'] = {
+            'whitespace': 'Scanner les espaces et compter les occurrences (simple vs double espace). Attention aux collapses d’espaces par l’éditeur.',
+            'zerowidth': 'Scanner pour U+200B/U+200C (ou le mapping choisi). Ces caractères sont invisibles dans l’affichage mais présents dans la chaîne.',
+            'case': 'Parcourir uniquement les caractères alphabétiques et lire leur casse (upper/lower).'
+        }
+
+        # Exemples d'erreurs fréquentes
+        details['error_modes'] = [
+            'Normalisation du texte: trim/collapse/replace multiple spaces.',
+            'Suppression de caractères zero-width par des sanitizeurs HTML.',
+            'Changement automatique de casse (lower/upper) par traitement de texte.'
+        ]
+
+        if method == 'whitespace':
+            details['steps'] = [
+                '1) Scanner le texte de gauche à droite et collecter les emplacements d’espaces/fins de ligne.',
+                '2) Interpréter la présence/absence ou le motif d’espacement selon la règle utilisée pour obtenir des bits.',
+                '3) Grouper les bits par 8 et décoder en UTF-8 pour reconstituer le message.'
+            ]
+            details['notes'].append('Vérifier la normalisation appliquée par l’éditeur/transport (trim/collapse).')
+
+        elif method == 'zerowidth':
+            details['steps'] = [
+                '1) Parcourir le texte et détecter les caractères zero-width aux positions attendues.',
+                '2) Traduire chaque caractère zero-width en bit selon le mapping choisi (ex: U+200B -> 0, U+200C -> 1).',
+                '3) Reconstituer les octets et décoder en UTF-8.'
+            ]
+            details['notes'].append('S’assurer que les zero-width n’ont pas été supprimés par un sanitizer.')
+
+        elif method == 'case':
+            details['steps'] = [
+                '1) Parcourir les lettres alphabétiques du texte de couverture dans l’ordre.',
+                "2) Interpréter la casse de chaque lettre comme bit 0/1 selon la convention utilisée.",
+                '3) Grouper par octets et décoder.'
+            ]
+            details['notes'].append('La casse peut être modifiée par des transformations automatiques lors du transit.')
+
+        else:
+            details['steps'] = ['Méthode non standard: extraction dynamique.']
+
+        if isinstance(result, dict):
+            result.setdefault('details', {})
+            result['details'].update(details)
+
         return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
     
     except Exception as e:
         return JsonResponse({
             'error': str(e)
         }, status=500)
+
+
+@csrf_exempt
+def api_stego_text_show_steps(request):
+    """
+    Montre toutes les étapes pour cacher un message dans un texte (et la vérification inverse).
+
+    POST /api/stego/text/show-steps/
+    Body: { "cover_text": "...", "secret_message": "...", "method": "whitespace|zerowidth|case" }
+    Retourne un tracé pas-à-pas: bits, positions, stego_text, étapes et tentative d'extraction.
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+
+    try:
+        data = json.loads(request.body)
+        cover_text = data.get('cover_text')
+        secret_message = data.get('secret_message')
+        method = data.get('method', 'whitespace')
+
+        if not cover_text or not secret_message:
+            return JsonResponse({'error': 'cover_text and secret_message are required'}, status=400)
+
+        # Convertir le message secret en bits (UTF-8)
+        msg_bytes = secret_message.encode('utf-8')
+        bits = ''.join(f"{b:08b}" for b in msg_bytes)
+
+        trace = {
+            'secret_message': secret_message,
+            'message_bytes': list(msg_bytes),
+            'bits': bits,
+            'method': method,
+            'used_slots': None,
+            'stego_text': None,
+            'notes': []
+        }
+
+        # Simuler l'encodage selon la méthode choisie
+        if method == 'whitespace':
+            # On n'utilise que les espaces ' ' comme emplacements (plus simple et reproductible)
+            needed = len(bits)
+            slots = [i for i, ch in enumerate(cover_text) if ch == ' ']
+            trace['available_slots'] = len(slots)
+
+            if len(slots) < needed:
+                trace['notes'].append('Pas assez d’emplacements (espaces) dans le texte de couverture pour encoder tous les bits.')
+
+            # Construire le texte résultat en itérant et consommant les bits lorsque l'on rencontre un espace
+            out_chars = []
+            bit_index = 0
+            slot_counter = 0
+            bit_placements = []
+            for i, ch in enumerate(cover_text):
+                # ajouter le caractère original
+                out_chars.append(ch)
+                if ch == ' ' and bit_index < len(bits):
+                    b = bits[bit_index]
+                    # règle: espace simple => bit 0 (laisser un espace), double espace => bit 1 (ajouter un espace supplémentaire)
+                    if b == '1':
+                        out_chars.append(' ')
+                    # enregistrer l'emplacement et le bit
+                    bit_placements.append({
+                        'slot_index': slot_counter,
+                        'char_index': i,
+                        'bit': b,
+                        'context': cover_text[max(0, i-10): i+10]
+                    })
+                    slot_counter += 1
+                    bit_index += 1
+
+            stego_text = ''.join(out_chars)
+            trace['used_slots'] = bit_index
+            trace['stego_text'] = stego_text
+            trace['bit_placements'] = bit_placements
+            trace['positions'] = [bp['char_index'] for bp in bit_placements]
+            steps = [
+                '1) Convertir le message en bits (UTF-8).',
+                "2) Parcourir le texte de couverture et pour chaque espace disponible, écrire un bit: espace simple=0, double=1.",
+                '3) Si il n’y a pas assez d’espaces, le message est tronqué ou il faut changer de méthode/texte de couverture.',
+                '4) Pour l’extraction, lire chaque espace dans le même ordre et reconstruire les bits.'
+            ]
+
+        elif method == 'zerowidth':
+            # mapping: U+200B -> 0, U+200C -> 1
+            z0 = '\u200b'
+            z1 = '\u200c'
+            needed = len(bits)
+            # positions possibles: after each character (between chars), count = len(cover_text)
+            max_positions = len(cover_text)
+            trace['available_slots'] = max_positions
+
+            if max_positions < needed:
+                trace['notes'].append('Pas assez d’emplacements (entre-caractères) pour encoder tous les bits.')
+
+            out = []
+            bit_index = 0
+            for i, ch in enumerate(cover_text):
+                out.append(ch)
+                if bit_index < len(bits):
+                    b = bits[bit_index]
+                    zchar = z1 if b == '1' else z0
+                    out.append(zchar)
+                    # record placement after character i
+                    if 'bit_placements' not in trace:
+                        trace['bit_placements'] = []
+                    trace['bit_placements'].append({'char_index': i, 'bit': b, 'mapping': '\\u200b=0 \\u200c=1'})
+                    bit_index += 1
+
+            stego_text = ''.join(out)
+            trace['used_slots'] = bit_index
+            trace['stego_text'] = stego_text
+            steps = [
+                '1) Convertir le message en bits (UTF-8).',
+                '2) Choisir un mapping zero-width (ex: U+200B=0, U+200C=1).',
+                '3) Insérer le caractère zero-width correspondant après chaque caractère du texte de couverture pour écrire les bits.',
+                '4) Pour l’extraction, détecter les zero-width dans le texte et reconstruire les bits puis la chaîne UTF-8.'
+            ]
+
+        elif method == 'case':
+            needed = len(bits)
+            letters_indices = [i for i, ch in enumerate(cover_text) if ch.isalpha()]
+            trace['available_slots'] = len(letters_indices)
+
+            if len(letters_indices) < needed:
+                trace['notes'].append('Pas assez de lettres alphabétiques dans le texte de couverture pour encoder tous les bits. Le message sera tronqué.')
+
+            out_chars = list(cover_text)
+            bit_index = 0
+            bit_placements = []
+            for slot_idx, idx in enumerate(letters_indices):
+                if bit_index >= len(bits):
+                    break
+                b = bits[bit_index]
+                ch = out_chars[idx]
+                transformed = ch.upper() if b == '1' else ch.lower()
+                out_chars[idx] = transformed
+                # record placement with more detail
+                bit_placements.append({
+                    'slot_index': slot_idx + 1,
+                    'char_index': idx,
+                    'original_char': ch,
+                    'bit': b,
+                    'transformed': transformed
+                })
+                bit_index += 1
+
+            stego_text = ''.join(out_chars)
+            trace['used_slots'] = bit_index
+            trace['stego_text'] = stego_text
+            trace['bit_placements'] = bit_placements
+            steps = [
+                '1) Convertir le message en bits (UTF-8).',
+                "2) Parcourir les lettres alphabétiques et définir majuscule=1/minuscule=0 pour écrire les bits.",
+                '3) Pour l’extraction, lire la casse des lettres dans le même ordre et reconstruire la suite de bits.'
+            ]
+
+            # Build a human-readable, paper-style representation using helper
+            try:
+                trace['paper_style'] = build_paper_style_case(cover_text, secret_message, stego_text, bit_placements, bits)
+            except Exception:
+                trace.setdefault('notes', []).append('Failed to build paper-style representation')
+
+        else:
+            return JsonResponse({'error': f'Method {method} not supported for step-by-step demo'}, status=400)
+
+        # Vérifier l'extraction via la fonction existante (si disponible)
+        try:
+            extracted = extract_text_from_text(trace['stego_text'], method)
+        except Exception as e:
+            extracted = {'error': f'Extraction simulation failed: {str(e)}'}
+
+        response = {
+            'success': True,
+            'method': method,
+            'steps': steps,
+            'trace': trace,
+            'extraction_simulation': extracted
+        }
+
+        return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
+
+    except Exception as e:
+        return JsonResponse({'error': str(e), 'traceback': traceback.format_exc()}, status=500)
+
+
+@csrf_exempt
+def api_stego_text_extract_steps(request):
+    """
+    Montre pas-à-pas comment extraire un message d'un texte stéganographié.
+
+    POST /api/stego/text/extract-steps/
+    Body: { "stego_text": "...", "method": "whitespace|zerowidth|case" }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+
+    try:
+        data = json.loads(request.body)
+        stego_text = data.get('stego_text')
+        method = data.get('method', 'whitespace')
+
+        if not stego_text:
+            return JsonResponse({'error': 'stego_text is required'}, status=400)
+
+        steps = []
+        trace = {'method': method}
+
+        if method == 'whitespace':
+            # lire les espaces
+            bits = []
+            for ch in stego_text:
+                if ch == ' ':
+                    # check if next char also space (double)
+                    # this simple heuristic won't alter original but for demo we lookahead
+                    # build by scanning with index
+                    pass
+
+            # Implement robust scan to detect single vs double spaces
+            bits = []
+            i = 0
+            s = stego_text
+            positions = []
+            while i < len(s):
+                if s[i] == ' ':
+                    # if next char is also space -> '1'
+                    if i + 1 < len(s) and s[i+1] == ' ':
+                        bits.append('1')
+                        positions.append(i)
+                        # consume the double space by skipping the second
+                        i += 2
+                    else:
+                        bits.append('0')
+                        positions.append(i)
+                        i += 1
+                else:
+                    i += 1
+
+            bits_str = ''.join(bits)
+            # regrouper en octets
+            bytes_out = [int(bits_str[i:i+8], 2) for i in range(0, len(bits_str) - (len(bits_str)%8), 8)]
+            try:
+                decoded = bytes(bytes_out).decode('utf-8') if bytes_out else ''
+            except Exception:
+                decoded = '<non-decodable>'
+
+            trace.update({'bits': bits_str, 'bytes': bytes_out, 'decoded': decoded})
+            trace['positions'] = positions
+            steps = [
+                '1) Scanner le texte et repérer chaque emplacement d’espace.',
+                "2) Détecter double espace => bit '1', espace simple => bit '0'.",
+                '3) Grouper les bits par 8 et décoder en UTF-8.'
+            ]
+
+        elif method == 'zerowidth':
+            z0 = '\u200b'
+            z1 = '\u200c'
+            bits = []
+            i = 0
+            s = stego_text
+            positions = []
+            while i < len(s):
+                ch = s[i]
+                i += 1
+                # check following zero-width
+                if i < len(s) and s[i] in (z0, z1):
+                    bits.append('1' if s[i] == z1 else '0')
+                    positions.append(i)
+                    i += 1
+
+            bits_str = ''.join(bits)
+            bytes_out = [int(bits_str[i:i+8], 2) for i in range(0, len(bits_str) - (len(bits_str)%8), 8)]
+            try:
+                decoded = bytes(bytes_out).decode('utf-8') if bytes_out else ''
+            except Exception:
+                decoded = '<non-decodable>'
+
+            trace.update({'bits': bits_str, 'bytes': bytes_out, 'decoded': decoded})
+            trace['positions'] = positions
+            steps = [
+                '1) Parcourir le texte et détecter les caractères zero-width entre caractères.',
+                '2) Traduire chaque zero-width en bit selon le mapping (ex: U+200B=0, U+200C=1).',
+                '3) Grouper les bits par 8 et décoder en UTF-8.'
+            ]
+
+        elif method == 'case':
+            bits = []
+            positions = []
+            for i, ch in enumerate(stego_text):
+                if ch.isalpha():
+                    bits.append('1' if ch.isupper() else '0')
+                    positions.append(i)
+
+            bits_str = ''.join(bits)
+            bytes_out = [int(bits_str[i:i+8], 2) for i in range(0, len(bits_str) - (len(bits_str)%8), 8)]
+            try:
+                decoded = bytes(bytes_out).decode('utf-8') if bytes_out else ''
+            except Exception:
+                decoded = '<non-decodable>'
+
+            trace.update({'bits': bits_str, 'bytes': bytes_out, 'decoded': decoded})
+            trace['positions'] = positions
+            steps = [
+                '1) Parcourir les lettres alphabétiques dans l’ordre.',
+                '2) Interpréter majuscule=1 / minuscule=0 pour chaque lettre.',
+                '3) Grouper les bits par 8 et décoder en UTF-8.'
+            ]
+
+        else:
+            return JsonResponse({'error': f'Method {method} not supported for extraction step demo'}, status=400)
+
+        return JsonResponse({'success': True, 'method': method, 'steps': steps, 'trace': trace}, json_dumps_params={'ensure_ascii': False})
+
+    except Exception as e:
+        return JsonResponse({'error': str(e), 'traceback': traceback.format_exc()}, status=500)
 
 
 @csrf_exempt
@@ -1144,6 +1699,7 @@ def api_image_stego_hide(request):
         image_data = data.get('image_data')
         secret_message = data.get('secret_message')
         method = data.get('method', 'lsb')
+        auto_resize = bool(data.get('auto_resize', True))
         
         if not image_data or not secret_message:
             return JsonResponse({
@@ -1161,8 +1717,99 @@ def api_image_stego_hide(request):
             return JsonResponse({
                 'error': f'Erreur de décodage base64: {str(e)}'
             }, status=400)
+
+        # Garde-fous taille upload (octets)
+        MAX_UPLOAD_BYTES = 8 * 1024 * 1024  # 8 MB
+        if len(image_bytes) > MAX_UPLOAD_BYTES:
+            return JsonResponse({
+                'error': 'Image trop volumineuse',
+                'details': f'Taille {len(image_bytes)//1024} KB > limite {MAX_UPLOAD_BYTES//1024} KB',
+                'hint': 'Choisissez une image plus petite ou activez la réduction côté client'
+            }, status=413)
+
+        # Optionnel: redimensionner si trop grande pour éviter blocage mémoire/CPU
+        resized_info = {}
+        try:
+            img = Image.open(io.BytesIO(image_bytes))
+            if img.mode not in ('RGB', 'RGBA'):  # normaliser pour la capacité
+                img = img.convert('RGB')
+            orig_w, orig_h = img.size
+            max_dim = 2048
+            max_pixels = 4_500_000  # ~4.5 MP
+            if auto_resize and (orig_w > max_dim or orig_h > max_dim or (orig_w * orig_h) > max_pixels):
+                # Conserver ratio
+                img.thumbnail((max_dim, max_dim))
+                buf = io.BytesIO()
+                img.save(buf, format='PNG')
+                image_bytes = buf.getvalue()
+                resized_info = {
+                    'resized': True,
+                    'original_size': f'{orig_w}x{orig_h}',
+                    'new_size': f'{img.size[0]}x{img.size[1]}'
+                }
+            else:
+                resized_info = {
+                    'resized': False,
+                    'original_size': f'{orig_w}x{orig_h}',
+                    'new_size': f'{orig_w}x{orig_h}'
+                }
+        except Exception:
+            # Si l’ouverture échoue, on continue et laisse hide_text_in_image gérer l’erreur
+            pass
         
         result = hide_text_in_image(image_bytes, secret_message, method)
+
+        # Calculer la capacité et fournir une explication pas-à-pas
+        details = {
+            'method': method,
+            'steps': [],
+            'capacity_bits': None,
+            'capacity_bytes': None,
+            'message_length_bytes': len(secret_message.encode('utf-8')),
+            'notes': []
+        }
+
+        try:
+            img_check = Image.open(io.BytesIO(image_bytes))
+            mode = img_check.mode
+            w, h = img_check.size
+            # déterminer le nombre de canaux approximatif
+            if mode == 'RGB':
+                channels = 3
+            elif mode == 'RGBA':
+                channels = 4
+            elif mode == 'L':
+                channels = 1
+            else:
+                # heuristique: treat as RGB
+                channels = 3
+
+            capacity_bits = w * h * channels
+            capacity_bytes = capacity_bits // 8
+
+            details['capacity_bits'] = capacity_bits
+            details['capacity_bytes'] = capacity_bytes
+
+            details['steps'] = [
+                '1) Convertir le message secret en bits (UTF-8).',
+                '2) Optionnel: stocker la longueur du message dans un en-tête (p.ex. premiers pixels).',
+                '3) Parcourir les pixels et, pour chaque canal choisi (R,G,B), remplacer le bit de poids faible (LSB) par un bit du message.',
+                '4) Sauvegarder l’image résultante en format lossless (PNG) pour conserver les LSB.',
+            ]
+
+            details['notes'].append('Capacité approximative calculée depuis largeur×hauteur×canaux.')
+            details['notes'].append('Ne pas utiliser JPEG (lossy) pour LSB, car la compression détruit les bits cachés.')
+
+        except Exception as e:
+            details['notes'].append(f"Impossible d'analyser l'image pour la capacité: {str(e)}")
+
+        if isinstance(resized_info, dict) and resized_info:
+            result.update(resized_info)
+
+        if isinstance(result, dict):
+            result.setdefault('details', {})
+            result['details'].update(details)
+
         return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
     
     except Exception as e:
@@ -1207,8 +1854,75 @@ def api_image_stego_extract(request):
             return JsonResponse({
                 'error': f'Erreur de décodage base64: {str(e)}'
             }, status=400)
+
+        # Garde-fous: refuser les images trop volumineuses pour extraction (on ne peut pas redimensionner sans perdre le message)
+        MAX_UPLOAD_BYTES = 8 * 1024 * 1024  # 8 MB
+        if len(image_bytes) > MAX_UPLOAD_BYTES:
+            return JsonResponse({
+                'error': 'Image trop volumineuse pour extraction',
+                'details': f'Taille {len(image_bytes)//1024} KB > limite {MAX_UPLOAD_BYTES//1024} KB',
+                'hint': 'Utilisez une image plus petite ou compressez-la sans perte avant l’intégration du message'
+            }, status=413)
+
+        # Vérifier rapidement la dimension en pixels
+        try:
+            img = Image.open(io.BytesIO(image_bytes))
+            w, h = img.size
+            max_pixels = 6_000_000  # ~6 MP
+            if (w * h) > max_pixels:
+                return JsonResponse({
+                    'error': 'Image trop grande (dimensions)',
+                    'details': f'{w}x{h} > limite de {max_pixels} pixels',
+                    'hint': 'Réduisez la résolution avant l’extraction (sinon le message sera perdu)'
+                }, status=413)
+        except Exception:
+            pass
         
         result = extract_text_from_image(image_bytes, method)
+
+        # Détails pédagogiques sur l'extraction depuis l'image
+        details = {
+            'method': method,
+            'steps': [],
+            'capacity_bits': None,
+            'capacity_bytes': None,
+            'notes': []
+        }
+
+        try:
+            img_check = Image.open(io.BytesIO(image_bytes))
+            mode = img_check.mode
+            w, h = img_check.size
+            if mode == 'RGB':
+                channels = 3
+            elif mode == 'RGBA':
+                channels = 4
+            elif mode == 'L':
+                channels = 1
+            else:
+                channels = 3
+
+            capacity_bits = w * h * channels
+            capacity_bytes = capacity_bits // 8
+
+            details['capacity_bits'] = capacity_bits
+            details['capacity_bytes'] = capacity_bytes
+
+            details['steps'] = [
+                '1) Lire l’en-tête si présent pour connaître la longueur du message.',
+                '2) Parcourir les pixels dans le même ordre que l’insertion et récupérer les LSB des canaux utilisés.',
+                '3) Reconstituer les octets à partir des bits récupérés et décoder en UTF-8.',
+            ]
+
+            details['notes'].append('Si l’image a subi une compression lossy, LSB peut être corrompu.')
+
+        except Exception as e:
+            details['notes'].append(f"Impossible d'analyser l'image pour la capacité: {str(e)}")
+
+        if isinstance(result, dict):
+            result.setdefault('details', {})
+            result['details'].update(details)
+
         return JsonResponse(result, json_dumps_params={'ensure_ascii': False})
     
     except Exception as e:
@@ -1226,9 +1940,70 @@ def api_stego_methods(request):
     
     GET /api/stego/methods/
     """
+    # Enrichir la réponse avec des descriptions détaillées (comme une solution sur papier)
+    text_methods = get_available_methods()
+    image_methods = get_image_methods()
+
+    # Descriptions humaines pour chaque méthode (breve puis détaillée)
+    text_method_details = {}
+    for m in text_methods:
+        if m == 'whitespace':
+            text_method_details[m] = {
+                'short': 'Encodage par espaces/fins de ligne (whitespace)',
+                'detailed_steps': [
+                    '1) Convertir le message secret en bits (UTF-8).',
+                    "2) Pour chaque bit, encoder '0' ou '1' en ajoutant ou non un espace supplémentaire à la fin d'une ligne ou d'un mot (ou en utilisant un motif d'espacement).",
+                    "3) Le texte de couverture reste lisible: seul le motif d'espacement transporte l'information.",
+                    '4) Limites: sensible au ré-encodage/normalisation du texte (trim, collapse spaces).',
+                    '5) Capacités: dépend du nombre d’emplacements d’espaces/fins de ligne dans le texte de couverture.'
+                ]
+            }
+        elif m == 'zerowidth':
+            text_method_details[m] = {
+                'short': 'Caractères invisibles (zero-width) insérés entre les caractères',
+                'detailed_steps': [
+                    '1) Convertir le message secret en bits (UTF-8).',
+                    '2) Utiliser des caractères zero-width (U+200B, U+200C, U+200D, U+FEFF) pour représenter 0/1 ou des séquences de bits.',
+                    '3) Insérer ces caractères entre lettres/mots du texte de couverture selon une règle définie.',
+                    '4) Extraction: lire la séquence de zero-width et reconstruire les bits puis l’octet et enfin la chaîne UTF-8.',
+                    '5) Avantages: invisible à l’œil, résiste mieux aux collapses d’espaces mais peut être supprimé par certains éditeurs/conversions (ex: nettoyage HTML).'
+                ]
+            }
+        elif m == 'case':
+            text_method_details[m] = {
+                'short': 'Encodage par casse (majuscules/minuscules)',
+                'detailed_steps': [
+                    '1) Convertir le message secret en bits.',
+                    "2) Parcourir les caractères alphabétiques du texte de couverture et définir: lettre en minuscule => bit '0', lettre en majuscule => bit '1'.",
+                    '3) Extraction: lire la casse des lettres selon la même règle et reconstruire le message.',
+                    '4) Limites: modifie la lisibilité (esthétique) et peut être altéré par normalisation qui change la casse.'
+                ]
+            }
+        else:
+            text_method_details[m] = {'short': m, 'detailed_steps': ['Méthode connue, détails non spécifiés.']}
+
+    image_method_details = {}
+    for m in image_methods:
+        if m == 'lsb':
+            image_method_details[m] = {
+                'short': 'Least Significant Bit (LSB) - insertion dans les bits de couleur',
+                'detailed_steps': [
+                    '1) Convertir le message secret en une suite de bits (UTF-8).',
+                    '2) Ouvrir l’image en mode RGB (3 canaux) ou RGBA.',
+                    '3) Pour chaque pixel et pour chaque canal (R,G,B), remplacer le bit le moins significatif par un bit du message.',
+                    "4) Continuer jusqu'à épuisement des bits du message; stocker la longueur du message en en-tête (par ex. dans les premiers pixels) pour l'extraction.",
+                    '5) Capacités approximatives: capacity_bits = width × height × channels; capacity_bytes = capacity_bits // 8.',
+                    '6) Limites: altération peu visible visuellement mais sujette à compression lossy (JPEG) qui détruit LSB; PNG recommandé (lossless).'
+                ]
+            }
+        else:
+            image_method_details[m] = {'short': m, 'detailed_steps': ['Méthode image connue, détails non spécifiés.']}
+
     return JsonResponse({
-        'text_methods': get_available_methods(),
-        'image_methods': get_image_methods()
+        'text_methods': text_methods,
+        'text_method_details': text_method_details,
+        'image_methods': image_methods,
+        'image_method_details': image_method_details
     }, json_dumps_params={'ensure_ascii': False})
 
 
@@ -1516,6 +2291,136 @@ def api_decrypt(request):
         return JsonResponse({
             'error': str(e)
         }, status=500)
+
+
+
+@csrf_exempt
+def api_captcha_generate(request):
+    """
+    Génère une image CAPTCHA, stocke le code dans la session et renvoie l'image en base64
+    
+    GET /captcha/generate/
+    Optional query/body:
+      - length: int (default 5)
+      - width: int (default 160)
+      - height: int (default 60)
+      - ttl_seconds: int (default 180)
+    """
+    try:
+        # Support GET or POST for convenience
+        params = {}
+        if request.method == 'POST':
+            try:
+                params = json.loads(request.body or '{}')
+            except Exception:
+                params = {}
+        else:
+            params = request.GET
+
+        length = int(params.get('length', 5))
+        width = int(params.get('width', 160))
+        height = int(params.get('height', 60))
+        ttl_seconds = int(params.get('ttl_seconds', 180))
+
+        # Construire un code avec lettres/chiffres, éviter ambiguités excessives
+        alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'  # sans I, O, 0, 1
+        code = ''.join(random.choice(alphabet) for _ in range(max(3, min(8, length))))
+
+        # Enregistrer en session pour vérification ultérieure
+        request.session['captcha_code'] = code
+        request.session['captcha_generated_at'] = time.time()
+        request.session['captcha_ttl'] = ttl_seconds
+
+        # Créer l'image
+        img = Image.new('RGB', (width, height), color=(255, 255, 255))
+        draw = ImageDraw.Draw(img)
+        try:
+            # Police par défaut (portable); on évite de dépendre de fichiers systèmes
+            font = ImageFont.load_default()
+        except Exception:
+            font = None
+
+        # Ajouter un léger bruit de fond (lignes)
+        for _ in range(8):
+            x1 = random.randint(0, width)
+            y1 = random.randint(0, height)
+            x2 = random.randint(0, width)
+            y2 = random.randint(0, height)
+            color = tuple(random.randint(150, 220) for _ in range(3))
+            draw.line((x1, y1, x2, y2), fill=color, width=1)
+
+        # Dessiner le code avec un léger jitter
+        margin_x = 10
+        spacing = max(20, (width - 2 * margin_x) // max(1, len(code)))
+        base_y = height // 2 - 8
+        for i, ch in enumerate(code):
+            x = margin_x + i * spacing + random.randint(-2, 2)
+            y = base_y + random.randint(-4, 4)
+            color = tuple(random.randint(0, 120) for _ in range(3))
+            draw.text((x, y), ch, font=font, fill=color)
+
+        # Exporter en PNG base64
+        buf = io.BytesIO()
+        img.save(buf, format='PNG')
+        b64 = base64.b64encode(buf.getvalue()).decode('utf-8')
+        return JsonResponse({
+            'image_data': f'data:image/png;base64,{b64}',
+            'length': len(code),
+            'ttl_seconds': ttl_seconds,
+            'success': True
+        })
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@csrf_exempt
+def api_captcha_verify(request):
+    """
+    Vérifie un code CAPTCHA contre la valeur stockée en session
+    
+    POST /captcha/verify/
+    Body: { "captcha": "ABCDE" }
+    """
+    if request.method != 'POST':
+        return JsonResponse({'error': 'POST only'}, status=405)
+
+    try:
+        data = json.loads(request.body or '{}')
+        user_code = str(data.get('captcha', '')).strip()
+
+        expected = request.session.get('captcha_code')
+        generated_at = float(request.session.get('captcha_generated_at', 0) or 0)
+        ttl_seconds = int(request.session.get('captcha_ttl', 180))
+
+        if not expected:
+            return JsonResponse({'error': 'No CAPTCHA in session', 'captcha_required': True}, status=400)
+
+        # Vérifier l’expiration
+        if generated_at and ttl_seconds and (time.time() - generated_at) > ttl_seconds:
+            # Expiré: invalider et signaler
+            try:
+                del request.session['captcha_code']
+                del request.session['captcha_generated_at']
+                del request.session['captcha_ttl']
+            except Exception:
+                pass
+            return JsonResponse({'error': 'CAPTCHA expiré', 'captcha_required': True}, status=400)
+
+        if user_code and expected and user_code.upper() == str(expected).upper():
+            # Succès: on peut invalider pour éviter réutilisation
+            try:
+                del request.session['captcha_code']
+                del request.session['captcha_generated_at']
+                del request.session['captcha_ttl']
+            except Exception:
+                pass
+            return JsonResponse({'success': True, 'message': 'CAPTCHA vérifié'})
+
+        return JsonResponse({'error': 'CAPTCHA incorrect', 'captcha_required': True}, status=400)
+
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 

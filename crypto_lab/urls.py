@@ -34,12 +34,19 @@ urlpatterns = [
     # Steganography endpoints
     path('stego/text/hide/', views.api_text_stego_hide, name='api_text_stego_hide'),
     path('stego/text/extract/', views.api_text_stego_extract, name='api_text_stego_extract'),
+    # Step-by-step demonstration endpoints for text steganography
+    path('stego/text/show-steps/', views.api_stego_text_show_steps, name='api_stego_text_show_steps'),
+    path('stego/text/extract-steps/', views.api_stego_text_extract_steps, name='api_stego_text_extract_steps'),
     path('stego/image/hide/', views.api_image_stego_hide, name='api_image_stego_hide'),
     path('stego/image/extract/', views.api_image_stego_extract, name='api_image_stego_extract'),
     path('stego/methods/', views.api_stego_methods, name='api_stego_methods'),
     path('stego/analyze/text/', views.api_analyze_cover_text, name='api_analyze_cover_text'),
     path('stego/analyze/image/', views.api_analyze_image_capacity, name='api_analyze_image_capacity'),
     path('stego/sample-image/', views.api_create_sample_image, name='api_create_sample_image'),
+
+    # CAPTCHA endpoints
+    path('captcha/generate/', views.api_captcha_generate, name='api_captcha_generate'),
+    path('captcha/verify/', views.api_captcha_verify, name='api_captcha_verify'),
     
     # Messaging with encryption steps endpoints
     path('api/encrypt/', views.api_encrypt, name='api_encrypt'),

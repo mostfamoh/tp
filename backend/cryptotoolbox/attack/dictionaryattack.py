@@ -30,11 +30,27 @@ def run_dictionary_attack(algorithm, encrypted, key_data, dictionary, start_time
     timeout_reached = False
     limit_reached = False
 
+    def _to_digits_if_possible(s: str):
+        if not s:
+            return None
+        mapping = {chr(ord('A') + i): str(i) for i in range(10)}
+        out = []
+        for ch in s.upper():
+            if ch in mapping:
+                out.append(mapping[ch])
+            else:
+                return None
+        return ''.join(out)
+
     def record(plaintext: str, keyobj, confidence: str, notes: str):
         nonlocal matches
+        cand_raw = plaintext
         cand = clean_text(plaintext)
+        cand_digits = _to_digits_if_possible(cand)
         matches.append({
             'candidate_plaintext': cand,
+            'candidate_plaintext_raw': cand_raw,
+            'candidate_plaintext_digits': cand_digits,
             'candidate_key': keyobj,
             'confidence': confidence,
             'notes': notes
